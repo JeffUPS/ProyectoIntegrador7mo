@@ -143,7 +143,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 							<h4>Actions</h4>
 							<ul class="actions">
 								<li><a href="#" class="button alt">Default</a></li>
-								<li><a href="#" class="button">Default</a></li>
+								<li><a href="#" class="button">Hola</a></li>
 							</ul>
 							<ul class="actions small">
 								<li><a href="#" class="button alt small">Small</a></li>

@@ -1,22 +1,4 @@
 <?php
-  session_start();
-
-  require 'database.php';
-
-  if (isset($_SESSION['user_id'])) {
-    $records = $conn->prepare('SELECT id, email, nombre, password FROM users WHERE id = :id');
-    $records->bindParam(':id', $_SESSION['user_id']);
-    $records->execute();
-    $results = $records->fetch(PDO::FETCH_ASSOC);
-
-    $user = null;
-
-    if (count($results) > 0) {
-      $user = $results;
-    }
-  }
-?>
-<?php
  require 'database.php';
  $id = $_GET['id'];
 
@@ -33,6 +15,9 @@
 
  $avi= "SELECT * FROM avion";
  $av=$mysqli->query($avi);
+
+ $logo= "SELECT * FROM logo";
+ $log = $mysqli->query($log);
 ?>
 
 <!DOCTYPE html>
@@ -53,7 +38,7 @@
 			<link rel="stylesheet" href="css/style-xlarge.css" />
 	</head>
 	<body>
-	<?php if(!empty($user)): ?>
+
 		<!-- Header -->
             <header id="header">
 				<h1><a href="admin.php">Ticket Express</a></h1>
@@ -72,11 +57,7 @@
 			<section id="main" class="wrapper">
 				<div class="container">
 
-					<header class="major">
-					
-						<h2>Bienvenido/a <?= $user['nombre'];?></h2>
-					</header>
-	<?php endif; ?>				
+						
 	<div class="row">
       <h2 style="text-align:center">MODIFICAR VUELO</h2>
     </div>
@@ -106,7 +87,11 @@
               <option value="<?php echo $opc['aereolinea']?>"><?php echo $opc['aereolinea'] ?>
               </option> 
              <?php endforeach ?>
-          </select><br><br>
+		  </select><br><br>
+		  Logo Aerolinea:
+			 </br>
+		  <input type="file" name="logo" value="<?php echo $opc['logo']?>">
+			 </br>
           Numero de vuelo:
           <input type="text" name="numero_vuelo" value="<?php echo $row['numero_vuelo']; ?>" ><br><br>
           Hora de salida:
@@ -114,17 +99,14 @@
           Hora de llegada:
           <input type="time" name="hora_llegada" min="1:00" max="24:00" step="600" value="<?php echo $row['hora_llegada']; ?>" ><br><br>
           Fecha de salida:
-          <input type="date" name="fecha_salida" min="2020-05-01" max="2021-12-31" value="<?php echo $row['fecha_salida']; ?>" ><br><br>
+          <input type="date" name="fecha_salida"  value="<?php echo $row['fecha_salida']; ?>" ><br><br>
           Fecha de llegada:
-          <input type="date" name="fecha_llegada" min="2020-05-01" max="2021-12-31" value="<?php echo $row['fecha_llegada']; ?>" ><br><br>
+          <input type="date" name="fecha_llegada" value="<?php echo $row['fecha_llegada']; ?>" ><br><br>
           Asientos:
-          <select name= "asientos">
-             <option value="Seleccione">---SELECCIONE---</option>
-             <?php foreach ($av as $opc): ?>
-              <option value="<?php echo $opc['asientos']?>"><?php echo $opc['asientos'] ?>
-              </option> 
-             <?php endforeach ?>
-          </select><br><br>
+          <div class="4u$ 12u$(4)">
+			<input type="numero" name="asientos" id="name" value="" placeholder="Ingrese numero de asientos" required/>
+		  </div>
+			 </br>
     
           <input type="submit" class="btn btn-primary" value="Guardar">
         </form>

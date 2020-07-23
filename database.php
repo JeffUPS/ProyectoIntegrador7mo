@@ -1,20 +1,5 @@
 <?php
-
-$server = 'localhost';
-$username = 'root';
-$password = '';
-$database = 'Proyecto';
-
-try {
-  $conn = new PDO("mysql:host=$server;dbname=$database;", $username, $password);
-} catch (PDOException $e) {
-  die('Connection Failed: ' . $e->getMessage());
-}
-
-?>
-
-<?php
-$mysqli = new mysqli('localhost', 'root', '', 'Proyecto');
+$mysqli = new mysqli('localhost', 'root', '', 'proyecto1');
 
 if($mysqli->connect_error){
   die('Error en la conexion'. $mysqli->connect_error);
@@ -23,3 +8,25 @@ if($mysqli->connect_error){
 #print('Conexion exitosa: '. $mysqli->server_info);
 
 ?>
+
+<?php
+$link = mysqli_connect('localhost', 'root', '', 'ProyectoIntegrador');
+
+if($link === false){
+    die("ERROR: Could not connect. " . mysqli_connect_error());
+}
+?>
+
+<?php
+//DB details
+$dbHost = 'localhost';
+$dbUsername = 'root';
+$dbPassword = '';
+$dbName = 'proyecto1';
+
+//Create connection and select DB
+$db = new mysqli($dbHost, $dbUsername, $dbPassword, $dbName);
+
+if ($db->connect_error) {
+    die("Unable to connect database: " . $db->connect_error);
+}

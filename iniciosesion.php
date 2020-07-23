@@ -1,27 +1,93 @@
 <?php
-
-  session_start();
-
-  if (isset($_SESSION['user_id'])) {
-    header('Location: /ProyectoIntegrador/indexcliente.php');
-  }
-  require 'database.php';
-
-  if (!empty($_POST['correo']) && !empty($_POST['password'])) {
-    $records = $conn->prepare('SELECT id_user, correo, password FROM Clientes WHERE correo = :correo');
-    $records->bindParam(':correo', $_POST['correo']);
-    $records->execute();
-    $results = $records->fetch(PDO::FETCH_ASSOC);
-
-    $message = '';
-
-    if (count($results) > 0 && password_verify($_POST['password'], $results['password'])) {
-      $_SESSION['user_id'] = $results['id_user'];
-    } else {
-      $message = 'Sus credenciales no concuerdan';
+// Initialize the session
+session_start();
+ 
+// Check if the user is already logged in, if yes then redirect him to welcome page
+if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+  header("location:indexcliente.php");
+  exit;
+}
+ 
+// Include config file
+require_once "database.php";
+ 
+// Define variables and initialize with empty values
+$correo = $password = "";
+$correo_err = $password_err = "";
+ 
+// Processing form data when form is submitted
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+ 
+    // Check if correo is empty
+    if(empty(trim($_POST["correo"]))){
+        $correo_err = "Por favor ingrese su usuario.";
+    } else{
+        $correo = trim($_POST["correo"]);
     }
-  }
+    
+    // Check if password is empty
+    if(empty(trim($_POST["password"]))){
+        $password_err = "Por favor ingrese su contraseña.";
+    } else{
+        $password = trim($_POST["password"]);
+    }
+    
+    // Validate credentials
+    if(empty($correo_err) && empty($password_err)){
+        // Prepare a select statement
+        $sql = "SELECT id_user, correo, password FROM users WHERE correo = ?";
+        
+        if($stmt = mysqli_prepare($link, $sql)){
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "s", $param_correo);
+            
+            // Set parameters
+            $param_correo = $correo;
+            
+            // Attempt to execute the prepared statement
+            if(mysqli_stmt_execute($stmt)){
+                // Store result
+                mysqli_stmt_store_result($stmt);
+                
+                // Check if correo exists, if yes then verify password
+                if(mysqli_stmt_num_rows($stmt) == 1){                    
+                    // Bind result variables
+                    mysqli_stmt_bind_result($stmt, $id, $correo, $hashed_password);
+                    if(mysqli_stmt_fetch($stmt)){
+                        if(password_verify($password, $hashed_password)){
+                            // Password is correct, so start a new session
+                            session_start();
+                            
+                            // Store data in session variables
+                            $_SESSION["loggedin"] = true;
+                            $_SESSION["id"] = $id;
+                            $_SESSION["correo"] = $correo;                            
+                            
+                            // Redirect user to welcome page
+							header("location: indexcliente.php");
 
+							if($correo == 'jeff.0318@gmail.com'){
+								header('Location: admin.php');
+							}
+                        } else{
+                            // Display an error message if password is not valid
+                            $password_err = "La contraseña que has ingresado no es válida.";
+                        }
+                    }
+                } else{
+                    // Display an error message if correo doesn't exist
+                    $correo_err = "No existe cuenta registrada con ese nombre de usuario.";
+                }
+            } else{
+                echo "Algo salió mal, por favor vuelve a intentarlo.";
+            }
+        }
+        
+        // Close statement
+    }
+    
+    // Close connection
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,31 +123,29 @@
 				</nav>
 			</header>
 
-			<section id="main" class="wrapper" >
+			<section id="main" class="wrapper" style="text-align:center" >
 				<div class="container" >
-					<form method="post" action="iniciosesion.php">
+					<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 						<header>
 							<h2>Inicio de Sesion</h2>
 						</header>
 						<div class="row uniform 100%">
 							<div class="4u$ 12u$(4)">
-								<input type="email" name="correo" id="name" value="" placeholder="Ingrese su Correo Electronico" required/>
+								<input type="text" name="correo" id="name" value="" placeholder="Ingrese su Correo Electronico" required/>
 							</div>
 							<div class="4u$ 12u$(4)">
 								<input type="password" name="password" id="email" value="" placeholder="Ingrese su Contraseña" required/>
 							</div>
+							<div class="4u$ 12u$(4)"
 							<br>No eres miembre?<a href="registrar.php">Unete Ahora</a></br>
-							<div class="12u$">
+							</div>
+							<div class="4u 12u$(4)">
 								<ul class="actions">
 									<li><input type="submit" value="Iniciar Sesion" class="special" /></li>
 								</ul>
 							</div>
 						</div>
 					</form>
-					<?php if(!empty($message)): ?>
-					<p><?= $message ?></p>
-					<?php endif; ?>
-
 				</div>	
 			</section>
 		

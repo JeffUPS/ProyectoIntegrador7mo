@@ -1,7 +1,14 @@
-document.getElementById("chk1").onclick = function(){
-  if (document.getElementById("fecha_llegada").disabled){
-    document.getElementById("fecha_llegada").disabled = false
-  }else{
-    document.getElementById("fecha_llegada").disabled = true
+var discounted = document.getElementById('isDiscounted');
+var no_discounted = document.getElementById('isNotDiscounted')
+var discount_percentage = document.getElementById('discountPercentage')
+
+function updateStatus() {
+  if (discounted.checked) {
+    discount_percentage.disabled = false;
+  } else {
+    discount_percentage.disabled = true;
   }
 }
+
+discounted.addEventListener('change', updateStatus)
+no_discounted.addEventListener('change', updateStatus)

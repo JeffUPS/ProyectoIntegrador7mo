@@ -1,20 +1,12 @@
 <?php
-  session_start();
-
-  require 'database.php';
-
-  if (isset($_SESSION['user_id'])) {
-    $records = $conn->prepare('SELECT id_user, correo, nombre, password FROM clientes WHERE id_user = :id_user');
-    $records->bindParam(':id_user', $_SESSION['user_id']);
-    $records->execute();
-    $results = $records->fetch(PDO::FETCH_ASSOC);
-
-    $user = null;
-
-    if (count($results) > 0) {
-      $user = $results;
-    }
-  }
+// Initialize the session
+session_start();
+ 
+// Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: iniciosesion.php");
+    exit;
+}
 ?>
 <?php
  require 'database.php';
@@ -48,12 +40,11 @@
 				<h1><a href="indexcliente.php">Ticket Express</a></h1>
 				<nav id="nav">
 					<ul>
-						<?php if(!empty($user)): ?>
-							<li><a href="profiel.php"><?= $user['nombre'];?></a></li>
-						<?php endif; ?>	
+						
+						<li><a href="profiel.php"><?php echo htmlspecialchars($_SESSION["correo"]); ?></a></li>	
 						<li><a href="indexcliente.php">Inicio</a></li>
-						<li><a href="info.php">Información</a></li>
-						<li><a href="help.php">Ayuda</a></li>
+						<li><a href="infocliente.php">Información</a></li>
+						<li><a href="helpcliente.php">Ayuda</a></li>
 						<li><a href="salir.php" class="button special">Salir</a></li>
 					</ul>
 				</nav>
@@ -63,6 +54,7 @@
 				<h2>Bienvenido a Ticket Express</h2>
 				<p>Viaja a tus lugares.</p>
 			</section>
+		
 
 		<!-- One -->
 			<section id="two" class="wrapper style2 special">
@@ -79,12 +71,12 @@
 									<label for="priority-normal">Ida y Vuelta</label>
 								</div>
 							<div class="4u(3)">
-								<input type="checkbox" id="chk1" name="priority">
+								<input type="radio" id="priority-normal" name="priority">
 								<label for="priority-low">Solo Ida</label>
 							</div>
 
 							</div>
-							<form action="vuelos.php" method="POST">
+							<form action="vueloscliente.php" method="POST">
 								<div class="row uniform">
 									<div class="6u(small)">
 										<h3>Origen:</h3>

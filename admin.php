@@ -1,22 +1,4 @@
 <?php
-  session_start();
-
-  require 'database.php';
-
-  if (isset($_SESSION['user_id'])) {
-    $records = $conn->prepare('SELECT id_user, correo, nombre, password FROM clientes WHERE id_user = :id_user');
-    $records->bindParam(':id_user', $_SESSION['user_id']);
-    $records->execute();
-    $results = $records->fetch(PDO::FETCH_ASSOC);
-
-    $user = null;
-
-    if (count($results) > 0) {
-      $user = $results;
-    }
-  }
-?>
-<?php
  require 'database.php';
   $where = "";
 
@@ -24,11 +6,11 @@
       $valor= $_POST['aereo_campo'];
 
       if(!empty($valor)){
-         $where= "WHERE aereolinea LIKE '%$valor%'";
+         $where= "WHERE aereolinea LIKE '%$valor%'"; 
       }
   }
 
-  $sql= "SELECT * FROM 	vuelo $where";
+  $sql= "SELECT * FROM bd_vuelo $where";
   $resultado = $mysqli->query($sql);
 
 ?>
@@ -51,7 +33,6 @@
 			<link rel="stylesheet" href="css/style-xlarge.css" />
 	</head>
 	<body>
-	<?php if(!empty($user)): ?>
 		<!-- Header -->
             <header id="header">
 				<h1><a href="admin.php">Ticket Express</a></h1>
@@ -59,7 +40,7 @@
 					<ul>
 						<li><a href="admin.php">Inicio</a></li>
 						<li><a href="registrovuelo.php">Registrar Vuelo</a></li>
-						<li><a href="help.php">Ayuda</a></li>
+						<li><a href="verclientes.php">Ver Clientes</a></li>
 						<li><a href="salir.php" class="button special">Salir</a></li>
 						
 					</ul>
@@ -72,9 +53,8 @@
 
 					<header class="major">
 					
-						<h2>Bienvenido/a <?= $user['nombre'];?></h2>
 					</header>
-	<?php endif; ?>				
+			
 		<div class="row" style="text-align:center">
 			<h3>Visualización de Vuelos</h3>
 		</div>
@@ -98,7 +78,8 @@
                 <th>FECHA LLEGADA</th>
                 <th>HORA SALIDA</th>
                 <th>HORA LLEGADA</th>
-                <th>AEREOLÍNEA</th>
+				<th>AEREOLÍNEA</th>
+				<th>LOGO</th>
                 <th>ASIENTOS</th>
                 <th>NÚMERO DE VUELO</th>
                 <th> </th>
@@ -117,7 +98,8 @@
                    <td><?php echo $row['fecha_llegada']; ?></td>
                    <td><?php echo $row['hora_salida']; ?></td>
                    <td><?php echo $row['hora_llegada']; ?></td>
-                   <td><?php echo $row['aereolinea']; ?></td>
+				   <td><?php echo $row['aereolinea']; ?></td>
+				   <td><?php echo '<img src="'.$row["foto"].'" width="100" heigth="100"><br>';?></td>
                    <td><?php echo $row['asientos']; ?></td>
                    <td><?php echo $row['numero_vuelo']; ?></td>
                    <td><a href="actualizarvuelo.php?id=<?php echo $row['id'];?>" class="btn btn-info"><i class="fa fa-pencil-square-o"></i>Edit</a></td>
