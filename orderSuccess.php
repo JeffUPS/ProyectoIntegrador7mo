@@ -108,14 +108,12 @@ require 'database.php';
             				while($row = $query->fetch_assoc()){
         					?>
 							<h2>Datos Pasajero</h2>
-							NOMBRE DEL PASAJERO:
-							<?php echo $row['nombre_pasajero']; ?>
+							NOMBRE:
+							<?php echo $row['nombre']; ?>
 							</br></br>
-							NUMERO DE PASAPORTE:
-							<?php echo $row['num_pasaporte']; ?>
+							NUMERO CORREO:
+							<?php echo $row['correo']; ?>
 							</br></br>
-							FECHA DE NACIMIENTO:
-							<?php echo $row['fecha_nacimiento']; ?>
 							</br>
 							-------------------------------------------------------------------------------------------------------------------------------
 							<h2>Datos Vuelo</h2>

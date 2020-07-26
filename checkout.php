@@ -12,10 +12,10 @@ if($cart->total_items() <= 0){
 }
 
 // set customer ID in session
-$_SESSION['sessCustomerID'] = 1;
+$_SESSION['sessCustomerID']=2;
 
 // get customer details by session customer ID
-$query = $mysqli->query("SELECT * FROM pasajero WHERE id = ".$_SESSION['sessCustomerID']);
+$query = $mysqli->query("SELECT * FROM clientes WHERE id_user = ".$_SESSION['sessCustomerID']);
 $custRow = $query->fetch_assoc();
 ?>
 <?php
@@ -140,9 +140,9 @@ if (isset($_GET['logout'])) {
     </table>
     <div class="shipAddr">
         <h4>Datos</h4>
-        <p><?php echo $custRow['nombre_pasajero']; ?></p>
-        <p><?php echo $custRow['num_pasaporte']; ?></p>
-        <p><?php echo $custRow['fecha_nacimiento']; ?></p>
+		
+        <p><?php echo $custRow['nombre']; ?></p>
+        <p><?php echo $custRow['correo']; ?></p>
     </div>
     <div class="footBtn">
         <a href="vueloscliente.php" class="button"><i class="glyphicon glyphicon-menu-left"></i>Continuar Comprando</a>
