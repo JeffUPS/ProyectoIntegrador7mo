@@ -1,4 +1,18 @@
 <?php
+
+session_start(); 
+
+	if (!isset($_SESSION['correo'])) {
+		$_SESSION['msg'] = "You must log in first";
+		header('location: iniciosesion.php');
+	}
+
+	if (isset($_GET['logout'])) {
+		session_destroy();
+		unset($_SESSION['correo']);
+		header("location: iniciosesion.php");
+	}
+
  require 'database.php';
  $where = "";
 
@@ -16,24 +30,12 @@
       }
   }
 
-  $ql= "SELECT * FROM bd_vuelo $where";
+  $ql= "SELECT * FROM vuelo $where";
   $resultado1 = $mysqli->query($ql);
 ?>
 
-<?php
-// include database configuration file
-include 'database.php';
-?>
-<?php
-// Initialize the session
-session_start();
- 
-// Check if the user is logged in, if not then redirect him to login page
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: iniciosesion.php");
-    exit;
-}
-?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -53,14 +55,18 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 	</head>
 	<body>
 		<!-- Header -->
-            <header id="header">
+			<header id="header">
 				<h1><a href="indexcliente.php">Ticket Express</a></h1>
 				<nav id="nav">
 					<ul>
-                        <li><a href="profiel.php"><?php echo htmlspecialchars($_SESSION["correo"]); ?></a></li>	
+						
+						<li><?php  if (isset($_SESSION['correo'])) : ?>
+						<a href="profiel.php"><?php echo $_SESSION['correo']; ?></a>
+						<?php endif ?></li>	
 						<li><a href="indexcliente.php">Inicio</a></li>
 						<li><a href="infocliente.php">Información</a></li>
 						<li><a href="helpcliente.php">Ayuda</a></li>
+						<li><a href="viewCart.php" title="View Cart"><img src="images/logocarrito.png" width="30" height="30"></a></li>
 						<li><a href="salir.php" class="button special">Salir</a></li>
 					</ul>
 				</nav>
@@ -75,8 +81,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 				<div class="row">
 					<div class="12u$">
 					<?php
-     
-        			$query = $db->query("SELECT * FROM products ORDER BY id DESC LIMIT 10");
+        			$query = $mysqli->query("SELECT * FROM vuelo ORDER BY id DESC LIMIT 10");
         			if($query->num_rows > 0){ 
             		while($row = $query->fetch_assoc()){
         			?>
@@ -94,11 +99,11 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 									<?php echo $row['fecha_llegada']; ?>
 									<b>Hora:</b>
 									<?php echo $row['hora_llegada']; ?>Hs
-									<?php echo $row['aerolinea']; ?>
-									<?php echo $row['numero_vuelo']; ?>
+									<?php echo $row['aereolinea']; ?>
+									<?php echo $row['num_vuelo']; ?>
 								</div>
 								<div class="col-md-6">
-                            		<p class="lead"><?php echo '$'.$row["price"].' USD'; ?></p>
+                            		<p class="lead"><?php echo '$'.$row["valor_pasaje"].' USD'; ?></p>
                         		</div>
 								<div>
 								<a class="button" href="cartAction.php?action=addToCart&id=<?php echo $row["id"]; ?>">Comprar</a>

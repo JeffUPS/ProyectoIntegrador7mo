@@ -1,14 +1,18 @@
 <?php
  require 'database.php';
- $id = $_GET['id'];
+ $id_vuelo = $_GET['id_vuelo'];
 
- $sql = "SELECT * FROM bd_vuelo WHERE id='$id'";
+ $sql = "SELECT * FROM vuelo WHERE id_vuelo='$id_vuelo'";
  $resultado = $mysqli->query($sql); 
  
  $row = $resultado->fetch_assoc();
  
- $ciu="SELECT * FROM ciudades";
+ $ciu="SELECT * FROM ciudad";
  $resu = $mysqli->query($ciu); 
+
+ 
+ $dest="SELECT * FROM ciudadesti";
+ $destino = $mysqli->query($dest);
    
  $aer="SELECT * FROM aereolinea";
  $res= $mysqli->query($aer);
@@ -16,8 +20,6 @@
  $avi= "SELECT * FROM avion";
  $av=$mysqli->query($avi);
 
- $logo= "SELECT * FROM logo";
- $log = $mysqli->query($log);
 ?>
 
 <!DOCTYPE html>
@@ -61,8 +63,8 @@
 	<div class="row">
       <h2 style="text-align:center">MODIFICAR VUELO</h2>
     </div>
-       <form action="actualizarvuelo.php" method="POST">
-          <input type= "hidden" name="id" value="<?php echo $row['id']; ?>" >
+       <form action="actualizar.php" method="POST" enctype="multipart/form-data">
+          <input type= "hidden" name="id_vuelo" value="<?php echo $row['id_vuelo']; ?>" >
           Ciudad Origen:
           <select name= "ciudad_origen">
              <option value="Seleccione">---SELECCIONE---</option>
@@ -75,7 +77,7 @@
           Ciudad Destino:
           <select name= "ciudad_destino">
              <option value="Seleccione">---SELECCIONE---</option>
-             <?php foreach ($resu as $opc): ?>
+             <?php foreach ($destino as $opc): ?>
               <option value="<?php echo $opc['ciudad_destino']?>"><?php echo $opc['ciudad_destino'] ?>
               </option> 
              <?php endforeach ?>
@@ -90,24 +92,29 @@
 		  </select><br><br>
 		  Logo Aerolinea:
 			 </br>
-		  <input type="file" name="logo" value="<?php echo $opc['logo']?>">
-			 </br>
+		  <input type="file" name="foto_aereo" value="<?php echo $opc['foto_aereo']?>">
+			 </br></br>
           Numero de vuelo:
-          <input type="text" name="numero_vuelo" value="<?php echo $row['numero_vuelo']; ?>" ><br><br>
+          <input type="text" name="num_vuelo" value="<?php echo $row['num_vuelo']; ?>" ><br><br>
           Hora de salida:
           <input type="time" name="hora_salida" min="1:00" max="24:00" step="600" value="<?php echo $row['hora_salida']; ?>" ><br><br>
           Hora de llegada:
           <input type="time" name="hora_llegada" min="1:00" max="24:00" step="600" value="<?php echo $row['hora_llegada']; ?>" ><br><br>
           Fecha de salida:
-          <input type="date" name="fecha_salida"  value="<?php echo $row['fecha_salida']; ?>" ><br><br>
+          <input type="date" name="fecha_salida"  min="2020-05-01" max="2021-12-31" value="<?php echo $row['fecha_salida']; ?>" ><br><br>
           Fecha de llegada:
-          <input type="date" name="fecha_llegada" value="<?php echo $row['fecha_llegada']; ?>" ><br><br>
+          <input type="date" name="fecha_llegada" min="2020-05-01" max="2021-12-31" value="<?php echo $row['fecha_llegada']; ?>" ><br><br>
           Asientos:
-          <div class="4u$ 12u$(4)">
-			<input type="numero" name="asientos" id="name" value="" placeholder="Ingrese numero de asientos" required/>
-		  </div>
-			 </br>
-    
+          <select name= "asientos">
+             <option value="Seleccione">---SELECCIONE---</option>
+             <?php foreach ($av as $opc): ?>
+              <option value="<?php echo $opc['asientos']?>"><?php echo $opc['asientos'] ?>
+              </option> 
+             <?php endforeach ?>
+          </select><br><br>
+         Valor Pasaje
+         <input type="text" name="valor_pasaje" value="<?php echo $row['valor_pasaje']; ?>" required=""><br><br>
+
           <input type="submit" class="btn btn-primary" value="Guardar">
         </form>
 

@@ -8,24 +8,28 @@ $cart = new Cart;
 
 // redirect to home if cart is empty
 if($cart->total_items() <= 0){
-    header("Location: vuelos.php");
+    header("Location: vueloscliente.php");
 }
 
 // set customer ID in session
 $_SESSION['sessCustomerID'] = 1;
 
 // get customer details by session customer ID
-$query = $db->query("SELECT * FROM customers WHERE id = ".$_SESSION['sessCustomerID']);
+$query = $mysqli->query("SELECT * FROM pasajero WHERE id = ".$_SESSION['sessCustomerID']);
 $custRow = $query->fetch_assoc();
 ?>
 <?php
-// Initialize the session
-session_start();
- 
-// Check if the user is logged in, if not then redirect him to login page
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: iniciosesion.php");
-    exit;
+
+
+if (!isset($_SESSION['correo'])) {
+	$_SESSION['msg'] = "You must log in first";
+	header('location: iniciosesion.php');
+}
+
+if (isset($_GET['logout'])) {
+	session_destroy();
+	unset($_SESSION['correo']);
+	header("location: iniciosesion.php");
 }
 ?>
 <!DOCTYPE html>
@@ -59,14 +63,18 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 	<body>
 
 		<!-- Header -->
-            <header id="header">
+			<header id="header">
 				<h1><a href="indexcliente.php">Ticket Express</a></h1>
 				<nav id="nav">
 					<ul>
-                    <li><a href="profiel.php"><?php echo htmlspecialchars($_SESSION["correo"]); ?></a></li>	
+						
+						<li><?php  if (isset($_SESSION['correo'])) : ?>
+						<a href="profiel.php"><?php echo $_SESSION['correo']; ?></a>
+						<?php endif ?></li>	
 						<li><a href="indexcliente.php">Inicio</a></li>
 						<li><a href="infocliente.php">Información</a></li>
 						<li><a href="helpcliente.php">Ayuda</a></li>
+						<li><a href="viewCart.php" title="View Cart"><img src="images/logocarrito.png" width="30" height="30"></a></li>
 						<li><a href="salir.php" class="button special">Salir</a></li>
 					</ul>
 				</nav>
@@ -111,9 +119,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             <td><?php echo $item["fecha_llegada"]; ?></td>
             <td><?php echo $item["hora_salida"]; ?></td>
             <td><?php echo $item["hora_llegada"]; ?></td>
-            <td><?php echo $item["aerolinea"]; ?></td>
-            <td><?php echo $item["numero_vuelo"]; ?></td>
-            <td><?php echo '$'.$item["price"].' USD'; ?></td>
+            <td><?php echo $item["aereolinea"]; ?></td>
+            <td><?php echo $item["num_vuelo"]; ?></td>
+            <td><?php echo '$'.$item["valor_pasaje"].' USD'; ?></td>
             <td><?php echo $item["qty"]; ?></td>
             <td><?php echo '$'.$item["subtotal"].' USD'; ?></td>
         </tr>
@@ -123,7 +131,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="3"></td>
+            <td colspan="10"></td>
             <?php if($cart->total_items() > 0){ ?>
             <td class="text-center"><strong>Total <?php echo '$'.$cart->total().' USD'; ?></strong></td>
             <?php } ?>
@@ -132,14 +140,13 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     </table>
     <div class="shipAddr">
         <h4>Datos</h4>
-        <p><?php echo $custRow['name']; ?></p>
-        <p><?php echo $custRow['email']; ?></p>
-        <p><?php echo $custRow['phone']; ?></p>
-        <p><?php echo $custRow['address']; ?></p>
+        <p><?php echo $custRow['nombre_pasajero']; ?></p>
+        <p><?php echo $custRow['num_pasaporte']; ?></p>
+        <p><?php echo $custRow['fecha_nacimiento']; ?></p>
     </div>
     <div class="footBtn">
-        <a href="index.php" class="button"><i class="glyphicon glyphicon-menu-left"></i> Continue Shopping</a>
-        <a href="cartAction.php?action=placeOrder" class="button">Place Order <i class="glyphicon glyphicon-menu-right"></i></a>
+        <a href="vueloscliente.php" class="button"><i class="glyphicon glyphicon-menu-left"></i>Continuar Comprando</a>
+        <a href="cartAction.php?action=placeOrder" class="button">Realizar Compra</a>
     </div>
     
 

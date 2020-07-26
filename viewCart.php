@@ -1,15 +1,20 @@
 <?php
-// Initialize the session
-session_start();
- 
-// Check if the user is logged in, if not then redirect him to login page
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: iniciosesion.php");
-    exit;
-}
-
 include 'cart.php';
 $cart = new Cart;
+?>
+<?php
+
+
+if (!isset($_SESSION['correo'])) {
+	$_SESSION['msg'] = "You must log in first";
+	header('location: iniciosesion.php');
+}
+
+if (isset($_GET['logout'])) {
+	session_destroy();
+	unset($_SESSION['correo']);
+	header("location: iniciosesion.php");
+}
 ?>
 
 
@@ -44,14 +49,18 @@ $cart = new Cart;
 	<body>
 
 		<!-- Header -->
-            <header id="header">
+			<header id="header">
 				<h1><a href="indexcliente.php">Ticket Express</a></h1>
 				<nav id="nav">
 					<ul>
-                    <li><a href="profiel.php"><?php echo htmlspecialchars($_SESSION["correo"]); ?></a></li>	
+						
+						<li><?php  if (isset($_SESSION['correo'])) : ?>
+						<a href="profiel.php"><?php echo $_SESSION['correo']; ?></a>
+						<?php endif ?></li>	
 						<li><a href="indexcliente.php">Inicio</a></li>
 						<li><a href="infocliente.php">Información</a></li>
 						<li><a href="helpcliente.php">Ayuda</a></li>
+						<li><a href="viewCart.php" title="View Cart"><img src="images/logocarrito.png" width="30" height="30"></a></li>
 						<li><a href="salir.php" class="button special">Salir</a></li>
 					</ul>
 				</nav>
@@ -77,8 +86,8 @@ $cart = new Cart;
             <th>Llegada</th>
             <th>Aerolinea</th>
             <th>Vuelo</th>
-            <th>Price</th>
-            <th>Quantity</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
             <th>Subtotal</th>
             <th> </th>
         </tr>
@@ -97,28 +106,32 @@ $cart = new Cart;
             <td><?php echo $item["fecha_llegada"]; ?></td>
             <td><?php echo $item["hora_salida"]; ?></td>
             <td><?php echo $item["hora_llegada"]; ?></td>
-            <td><?php echo $item["aerolinea"]; ?></td>
-            <td><?php echo $item["numero_vuelo"]; ?></td>
-            <td><?php echo '$'.$item["price"].' USD'; ?></td>
+            <td><?php echo $item["aereolinea"]; ?></td>
+            <td><?php echo $item["num_vuelo"]; ?></td>
+            <td><?php echo '$'.$item["valor_pasaje"].' USD'; ?></td>
             <td><input type="number" class="form-control text-center" value="<?php echo $item["qty"]; ?>" onchange="updateCartItem(this, '<?php echo $item["rowid"]; ?>')"></td>
             <td><?php echo '$'.$item["subtotal"].' USD'; ?></td>
             <td>
-                <a href="cartAction.php?action=removeCartItem&id=<?php echo $item["rowid"]; ?>" class="button" onclick="return confirm('Are you sure?')"><i class="glyphicon glyphicon-trash"></i></a>
+                <a href="cartAction.php?action=removeCartItem&id=<?php echo $item["rowid"]; ?>" class="button" onclick="return confirm('Esta Seguro?')">Eliminar</a>
             </td>
         </tr>
         <?php } }else{ ?>
-        <tr><td colspan="5"><p>Your cart is empty.....</p></td>
+        <tr><td colspan="12"><p>No tienes compras pendientes.....</p></td>
         <?php } ?>
     </tbody>
     <tfoot>
         <tr>
-            <td><a href="vuelos.php" class="button"><i class="glyphicon glyphicon-menu-left"></i> Continuar Comprando</a></td>
-            <td colspan="2"></td>
+            
+            <td colspan="10"></td>
             <?php if($cart->total_items() > 0){ ?>
             <td class="text-center"><strong>Total <?php echo '$'.$cart->total().' USD'; ?></strong></td>
-            <td><a href="checkout.php" class="button">Checkout <i class="glyphicon glyphicon-menu-right"></i></a></td>
-            <?php } ?>
+			<td><a href="checkout.php" class="button">Checkout <i class="glyphicon glyphicon-menu-right"></i></a></td>
         </tr>
+		<tr>
+			<td colspan="10"></td>
+			<!-- <td><a href="vueloscliente.php" class="button"><i class="glyphicon glyphicon-menu-left"></i> Continuar Comprando</a></td> -->
+            <?php } ?>
+		</tr>
     </tfoot>
     </table>
 

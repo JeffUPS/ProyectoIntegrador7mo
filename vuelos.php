@@ -1,8 +1,28 @@
-
 <?php
-// include database configuration file
-include 'database.php';
+
+
+ require 'database.php';
+ $where = "";
+
+  if(!empty($_POST)){
+      $ciudad_origen= $_POST['ciudad_origen'];
+      $ciudad_destino= $_POST['ciudad_destino'];
+      $fecha_salida= $_POST['fecha_salida'];
+      $fecha_llegada=$_POST['fecha_llegada'];
+
+      if(!empty($ciudad_origen and $ciudad_destino and $fecha_salida and $fecha_llegada)){
+         $where= "WHERE ciudad_origen ='$ciudad_origen' AND ciudad_destino='$ciudad_destino' AND fecha_salida='$fecha_salida' AND fecha_llegada='$fecha_llegada'";
+         #AND ciudad_origen ='$valor2' AND num_vuelo = '$valor1'";
+         #"WHERE ciudad_origen LIKE '%$ciudad_origen%' AND ciudad_destino LIKe '%$ciudad_destino%' AND fecha_salida LIKE '%$fecha_salida%' AND fecha_llegada LIKE '%$fecha_llegada%'";
+         
+      }
+  }
+
+  $ql= "SELECT * FROM vuelo $where";
+  $resultado1 = $mysqli->query($ql);
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -22,20 +42,20 @@ include 'database.php';
 	</head>
 	<body>
 		<!-- Header -->
-            <header id="header">
+			<header id="header">
 				<h1><a href="index.php">Ticket Express</a></h1>
 				<nav id="nav">
 					<ul>
-                        <li><a href="indexcliente.php">Inicio</a></li>
+						<li><a href="index.php">Inicio</a></li>
 						<li><a href="info.php">Información</a></li>
 						<li><a href="help.php">Ayuda</a></li>
-						<li><a href="iniciosesion.php" class="button special">Inicio Sesión</a></li>
+						<li><a href="iniciosesion.php" class="button special">Iniciar Sesion</a></li>
 					</ul>
 				</nav>
 			</header>
 
 		<!-- Main -->
-        <section id="one" class="wrapper style1 special">
+		<section id="one" class="wrapper style1 special">
 			<div class="container">
 				<header class="major">
 					<h2>Viaja a tus lugares favoritos</h2>
@@ -43,8 +63,7 @@ include 'database.php';
 				<div class="row">
 					<div class="12u$">
 					<?php
-     
-        			$query = $db->query("SELECT * FROM products ORDER BY id DESC LIMIT 10");
+        			$query = $mysqli->query("SELECT * FROM vuelo ORDER BY id DESC LIMIT 10");
         			if($query->num_rows > 0){ 
             		while($row = $query->fetch_assoc()){
         			?>
@@ -62,11 +81,11 @@ include 'database.php';
 									<?php echo $row['fecha_llegada']; ?>
 									<b>Hora:</b>
 									<?php echo $row['hora_llegada']; ?>Hs
-									<?php echo $row['aerolinea']; ?>
-									<?php echo $row['numero_vuelo']; ?>
+									<?php echo $row['aereolinea']; ?>
+									<?php echo $row['num_vuelo']; ?>
 								</div>
 								<div class="col-md-6">
-                            		<p class="lead"><?php echo '$'.$row["price"].' USD'; ?></p>
+                            		<p class="lead"><?php echo '$'.$row["valor_pasaje"].' USD'; ?></p>
                         		</div>
 								<div>
 								<a class="button" href="cartAction.php?action=addToCart&id=<?php echo $row["id"]; ?>">Comprar</a>

@@ -2,9 +2,9 @@
 
   require 'database.php';
   
-  $id = $_GET['id'];
+  $id = $_GET['id_vuelo'];
   
-$sql = "DELETE FROM bd_vuelo WHERE id = '$id' ";
+$sql = "DELETE FROM vuelo WHERE id_vuelo = '$id' ";
 					
 $resultado = $mysqli->query($sql);
 
@@ -21,9 +21,9 @@ $resultado = $mysqli->query($sql);
            <div class="row">
              <div class="row" style="text-align:center">
              <?php if($resultado) { ?>
-                echo "<script> alert("Vuelo Eliminado"); window.location="admin.php";</script>";
+                echo "<script> alert("VUELO ELIMINADO"); window.location="admin.php";</script>";
              <?php } else { ?>
-               echo "<script> alert("Vuelo no eliminado"); window.location="admin.php";</script>";
+               echo "<script> alert("VUELO NO ELIMINADO"); window.location="admin.php";</script>";
              <?php } ?>
 
 

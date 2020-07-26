@@ -1,12 +1,6 @@
 <?php
 // Initialize the session
-session_start();
- 
-// Check if the user is logged in, if not then redirect him to login page
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: iniciosesion.php");
-    exit;
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,17 +46,17 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 						</header>
 						<div class="row uniform 100%">
 							<div class="4u$ 12u$(4)">
-								<input type="text" name="nombre" id="name" value="" placeholder="Ingrese el Nombre del Pasajero" required/>
+								<input type="text" name="nombre_pasajero" id="name" value="" placeholder="Ingrese el Nombre del Pasajero" required/>
 							</div>
 							<div class="4u$ 12u$(4)">
-								<input type="text" name="pasaporte" id="email" value="" placeholder="Ingrese el Numero de Pasaporte" required/>
+								<input type="text" name="num_pasaporte" id="pasajero" value="" placeholder="Ingrese el Numero de Pasaporte" required/>
 							</div>
 							<div class="4u$ 12u$(4)">
-								<input type="date" name="nacimiento" id="email" value="" placeholder="Ingrese su fecha de nacimiento" required/>
+								<input type="date" name="fecha_nacimiento" id="fecha_nacimiento" value="" placeholder="Ingrese su fecha de nacimiento" required/>
 							</div>
 							<div class="4u 12u$(4)">
 								<ul class="actions">
-									<li><input type="submit" value="Comprar" class="special" /></li>
+									<li><input type="submit" value="Guardar Datos" class="special" /></li>
 								</ul>
 							</div>
 						</div>

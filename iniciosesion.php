@@ -1,94 +1,4 @@
-<?php
-// Initialize the session
-session_start();
- 
-// Check if the user is already logged in, if yes then redirect him to welcome page
-if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-  header("location:indexcliente.php");
-  exit;
-}
- 
-// Include config file
-require_once "database.php";
- 
-// Define variables and initialize with empty values
-$correo = $password = "";
-$correo_err = $password_err = "";
- 
-// Processing form data when form is submitted
-if($_SERVER["REQUEST_METHOD"] == "POST"){
- 
-    // Check if correo is empty
-    if(empty(trim($_POST["correo"]))){
-        $correo_err = "Por favor ingrese su usuario.";
-    } else{
-        $correo = trim($_POST["correo"]);
-    }
-    
-    // Check if password is empty
-    if(empty(trim($_POST["password"]))){
-        $password_err = "Por favor ingrese su contraseña.";
-    } else{
-        $password = trim($_POST["password"]);
-    }
-    
-    // Validate credentials
-    if(empty($correo_err) && empty($password_err)){
-        // Prepare a select statement
-        $sql = "SELECT id_user, correo, password FROM users WHERE correo = ?";
-        
-        if($stmt = mysqli_prepare($link, $sql)){
-            // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_correo);
-            
-            // Set parameters
-            $param_correo = $correo;
-            
-            // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
-                // Store result
-                mysqli_stmt_store_result($stmt);
-                
-                // Check if correo exists, if yes then verify password
-                if(mysqli_stmt_num_rows($stmt) == 1){                    
-                    // Bind result variables
-                    mysqli_stmt_bind_result($stmt, $id, $correo, $hashed_password);
-                    if(mysqli_stmt_fetch($stmt)){
-                        if(password_verify($password, $hashed_password)){
-                            // Password is correct, so start a new session
-                            session_start();
-                            
-                            // Store data in session variables
-                            $_SESSION["loggedin"] = true;
-                            $_SESSION["id"] = $id;
-                            $_SESSION["correo"] = $correo;                            
-                            
-                            // Redirect user to welcome page
-							header("location: indexcliente.php");
-
-							if($correo == 'jeff.0318@gmail.com'){
-								header('Location: admin.php');
-							}
-                        } else{
-                            // Display an error message if password is not valid
-                            $password_err = "La contraseña que has ingresado no es válida.";
-                        }
-                    }
-                } else{
-                    // Display an error message if correo doesn't exist
-                    $correo_err = "No existe cuenta registrada con ese nombre de usuario.";
-                }
-            } else{
-                echo "Algo salió mal, por favor vuelve a intentarlo.";
-            }
-        }
-        
-        // Close statement
-    }
-    
-    // Close connection
-}
-?>
+<?php include('registro.php') ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -124,29 +34,28 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			</header>
 
 			<section id="main" class="wrapper" style="text-align:center" >
-				<div class="container" >
-					<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-						<header>
+					<form method="post" action="iniciosesion.php">
+						<header class="major">
 							<h2>Inicio de Sesion</h2>
 						</header>
 						<div class="row uniform 100%">
 							<div class="4u$ 12u$(4)">
-								<input type="text" name="correo" id="name" value="" placeholder="Ingrese su Correo Electronico" required/>
+								<input type="text" name="correo" placeholder="Ingrese su Correo Electronico" required/>
 							</div>
 							<div class="4u$ 12u$(4)">
-								<input type="password" name="password" id="email" value="" placeholder="Ingrese su Contraseña" required/>
+								<input type="password" name="password" placeholder="Ingrese su Contraseña" required/>
 							</div>
 							<div class="4u$ 12u$(4)"
-							<br>No eres miembre?<a href="registrar.php">Unete Ahora</a></br>
+							</br>No eres miembro?<a href="registrar.php"><b>  Unete Ahora</b></a></br>
 							</div>
 							<div class="4u 12u$(4)">
 								<ul class="actions">
-									<li><input type="submit" value="Iniciar Sesion" class="special" /></li>
+									<li><button type="submit" class="button fit" name="login_user">Iniciar Sesion</button></li>
 								</ul>
 							</div>
 						</div>
+						
 					</form>
-				</div>	
 			</section>
 		
 

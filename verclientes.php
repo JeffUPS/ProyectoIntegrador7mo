@@ -1,19 +1,13 @@
+
 <?php
-// Initialize the session
 session_start();
- 
-// Check if the user is logged in, otherwise redirect to login page
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: iniciosesion.php");
-    exit;
-}
- 
-// Include config file
-require_once "database.php";
+ require_once "database.php";
+ $where = "";
 
-    // Close connection
-    mysqli_close($link);
-
+ 
+ $sql= "SELECT * FROM clientes $where";
+ $resultado = $mysqli->query($sql);
+ mysqli_close($mysqli);
 ?>
 
 <!DOCTYPE html>
@@ -65,23 +59,20 @@ require_once "database.php";
 				<thead>
                 <tr>
                 <th>ID</th>
-                <th>Correo</th>
-                <th>Contraseña</th>
-                <th> </th>
-                <th> </th>
+                <th>NOMBRE</th>
+                <th>CORREO</th>
                 </tr>
                 </thead>
                 <tbody>
 					
-                
+                <?php while($row = $resultado->fetch_array(
+                    MYSQLI_ASSOC))  { ?>
                    <tr>
-                   <td><?php echo htmlspecialchars($_SESSION["id_user"]); ?></td>
-                   <td><?php echo htmlspecialchars($_SESSION["correo"]); ?></td>
-                   <td><?php echo htmlspecialchars($_SESSION["password"]); ?></td>
-                   <td><a href="actualizarvuelo.php?id=<?php echo $row['id'];?>" class="btn btn-info"><i class="fa fa-pencil-square-o"></i>Edit</a></td>
-                   <td><a href="eliminarvuelo.php?id=<?php echo $row['id'];?>" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i> Delete</a></td>
-                   </tr>
-               
+                   <td><?php echo $row['id_user']; ?></td>
+                   <td><?php echo $row['nombre']; ?></td>
+                   <td><?php echo $row['correo']; ?></td>
+                    </tr>
+                <?php } ?>
 
                  </tbody>
             </table>

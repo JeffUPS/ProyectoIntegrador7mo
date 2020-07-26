@@ -9,7 +9,7 @@ if(isset($_REQUEST['action']) && !empty($_REQUEST['action'])){
     if($_REQUEST['action'] == 'addToCart' && !empty($_REQUEST['id'])){
         $productID = $_REQUEST['id'];
         // get product details
-        $query = $db->query("SELECT * FROM products WHERE id = ".$productID);
+        $query = $mysqli->query("SELECT * FROM vuelo WHERE id = ".$productID);
         $row = $query->fetch_assoc();
         $itemData = array(
             'id' => $row['id'],
@@ -19,9 +19,9 @@ if(isset($_REQUEST['action']) && !empty($_REQUEST['action'])){
             'fecha_llegada' => $row['fecha_llegada'],
             'hora_salida' => $row['hora_salida'],
             'hora_llegada' => $row['hora_llegada'],
-            'aerolinea' => $row['aerolinea'],
-            'numero_vuelo' => $row['numero_vuelo'],
-            'price' => $row['price'],
+            'aereolinea' => $row['aereolinea'],
+            'num_vuelo' => $row['num_vuelo'],
+            'valor_pasaje' => $row['valor_pasaje'],
             'qty' => 1
         );
         
@@ -40,18 +40,18 @@ if(isset($_REQUEST['action']) && !empty($_REQUEST['action'])){
         header("Location: viewCart.php");
     }elseif($_REQUEST['action'] == 'placeOrder' && $cart->total_items() > 0 && !empty($_SESSION['sessCustomerID'])){
         // insert order details into database
-        $insertOrder = $db->query("INSERT INTO orders (customer_id, total_price) VALUES ('".$_SESSION['sessCustomerID']."', '".$cart->total()."')");
+        $insertOrder = $mysqli->query("INSERT INTO compras (customer_id, total_price) VALUES ('".$_SESSION['sessCustomerID']."', '".$cart->total()."')");
         
         if($insertOrder){
-            $orderID = $db->insert_id;
+            $orderID = $mysqli->insert_id;
             $sql = '';
             // get cart items
             $cartItems = $cart->contents();
             foreach($cartItems as $item){
-                $sql .= "INSERT INTO order_items (order_id, product_id, quantity) VALUES ('".$orderID."', '".$item['id']."', '".$item['qty']."');";
+                $sql .= "INSERT INTO boleto (order_id, product_id, quantity) VALUES ('".$orderID."', '".$item['id']."', '".$item['qty']."');";
             }
             // insert order items into database
-            $insertOrderItems = $db->multi_query($sql);
+            $insertOrderItems = $mysqli->multi_query($sql);
             
             if($insertOrderItems){
                 $cart->destroy();
@@ -63,8 +63,8 @@ if(isset($_REQUEST['action']) && !empty($_REQUEST['action'])){
             header("Location: checkout.php");
         }
     }else{
-        header("Location: vuelos.php");
+        header("Location: vueloscliente.php");
     }
 }else{
-    header("Location: vuelos.php");
+    header("Location: vueloscliente.php");
 }

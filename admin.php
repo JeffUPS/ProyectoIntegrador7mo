@@ -10,7 +10,7 @@
       }
   }
 
-  $sql= "SELECT * FROM bd_vuelo $where";
+  $sql= "SELECT * FROM vuelo $where";
   $resultado = $mysqli->query($sql);
 
 ?>
@@ -82,6 +82,7 @@
 				<th>LOGO</th>
                 <th>ASIENTOS</th>
                 <th>NÚMERO DE VUELO</th>
+				<th>VALOR PASAJE</th>
                 <th> </th>
                 <th> </th>
                 </tr>
@@ -99,11 +100,12 @@
                    <td><?php echo $row['hora_salida']; ?></td>
                    <td><?php echo $row['hora_llegada']; ?></td>
 				   <td><?php echo $row['aereolinea']; ?></td>
-				   <td><?php echo '<img src="'.$row["foto"].'" width="100" heigth="100"><br>';?></td>
+				   <td><?php echo '<img src="'.$row["foto_aereo"].'" width="100" heigth="100"><br>';?></td>
                    <td><?php echo $row['asientos']; ?></td>
-                   <td><?php echo $row['numero_vuelo']; ?></td>
-                   <td><a href="actualizarvuelo.php?id=<?php echo $row['id'];?>" class="btn btn-info"><i class="fa fa-pencil-square-o"></i>Edit</a></td>
-                   <td><a href="eliminarvuelo.php?id=<?php echo $row['id'];?>" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i> Delete</a></td>
+                   <td><?php echo $row['num_vuelo']; ?></td>
+				   <td><?php echo $row['valor_pasaje']; ?></td>
+                   <td><a href="actualizarvuelo.php?id_vuelo=<?php echo $row['id_vuelo'];?>" class="btn btn-info"><i class="fa fa-pencil-square-o"></i>Edit</a></td>
+                   <td><a href="eliminarvuelo.php?id_vuelo=<?php echo $row['id_vuelo'];?>" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i> Delete</a></td>
                    </tr>
                 <?php } ?>
 

@@ -1,11 +1,15 @@
 <?php
-// Initialize the session
-session_start();
- 
-// Check if the user is logged in, if not then redirect him to login page
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+session_start(); 
+
+if (!isset($_SESSION['correo'])) {
+    $_SESSION['msg'] = "You must log in first";
+    header('location: iniciosesion.php');
+}
+
+if (isset($_GET['logout'])) {
+    session_destroy();
+    unset($_SESSION['correo']);
     header("location: iniciosesion.php");
-    exit;
 }
 ?>
 <?php 
@@ -74,7 +78,7 @@ class Cart {
         if(!is_array($item) OR count($item) === 0){
             return FALSE;
         }else{
-            if(!isset($item['id'], $item['ciudad_origen'], $item['ciudad_destino'], $item['fecha_salida'], $item['fecha_llegada'], $item['hora_salida'], $item['hora_llegada'], $item['aerolinea'], $item['numero_vuelo'], $item['price'], $item['qty'])){
+            if(!isset($item['id'], $item['ciudad_origen'], $item['ciudad_destino'], $item['fecha_salida'], $item['fecha_llegada'], $item['hora_salida'], $item['hora_llegada'], $item['aereolinea'], $item['num_vuelo'], $item['valor_pasaje'], $item['qty'])){
                 return FALSE;
             }else{
                 /*
@@ -86,7 +90,7 @@ class Cart {
                     return FALSE;
                 }
                 // prep the price
-                $item['price'] = (float) $item['price'];
+                $item['valor_pasaje'] = (float) $item['valor_pasaje'];
                 // create a unique identifier for the item being inserted into the cart
                 $rowid = md5($item['id']);
                 // get quantity if it's already there and add it on
@@ -131,11 +135,11 @@ class Cart {
                 // find updatable keys
                 $keys = array_intersect(array_keys($this->cart_contents[$item['rowid']]), array_keys($item));
                 // prep the price
-                if(isset($item['price'])){
-                    $item['price'] = (float) $item['price'];
+                if(isset($item['valor_pasaje'])){
+                    $item['valor_pasaje'] = (float) $item['valor_pasaje'];
                 }
                 // product id & name shouldn't be changed
-                foreach(array_diff($keys, array('id', 'ciudad_origen','ciudad_destino','fecha_salida','fecha_llegada','hora_salida','hora_llegada','aerolinea','numero_vuelo')) as $key){
+                foreach(array_diff($keys, array('id', 'ciudad_origen','ciudad_destino','fecha_salida','fecha_llegada','hora_salida','hora_llegada','aereolinea','num_vuelo')) as $key){
                     $this->cart_contents[$item['rowid']][$key] = $item[$key];
                 }
                 // save cart data
@@ -153,13 +157,13 @@ class Cart {
         $this->cart_contents['total_items'] = $this->cart_contents['cart_total'] = 0;
         foreach ($this->cart_contents as $key => $val){
             // make sure the array contains the proper indexes
-            if(!is_array($val) OR !isset($val['price'], $val['qty'])){
+            if(!is_array($val) OR !isset($val['valor_pasaje'], $val['qty'])){
                 continue;
             }
      
-            $this->cart_contents['cart_total'] += ($val['price'] * $val['qty']);
+            $this->cart_contents['cart_total'] += ($val['valor_pasaje'] * $val['qty']);
             $this->cart_contents['total_items'] += $val['qty'];
-            $this->cart_contents[$key]['subtotal'] = ($this->cart_contents[$key]['price'] * $this->cart_contents[$key]['qty']);
+            $this->cart_contents[$key]['subtotal'] = ($this->cart_contents[$key]['valor_pasaje'] * $this->cart_contents[$key]['qty']);
         }
         
         // if cart empty, delete it from the session

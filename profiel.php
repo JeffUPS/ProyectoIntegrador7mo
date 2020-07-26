@@ -1,73 +1,27 @@
-<?php
-// Initialize the session
-session_start();
- 
-// Check if the user is logged in, otherwise redirect to login page
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: iniciosesion.php");
-    exit;
-}
- 
-// Include config file
-require_once "database.php";
- 
-// Define variables and initialize with empty values
-$new_password = $confirm_password = "";
-$new_password_err = $confirm_password_err = "";
- 
-// Processing form data when form is submitted
-if($_SERVER["REQUEST_METHOD"] == "POST"){
- 
-    // Validate new password
-    if(empty(trim($_POST["new_password"]))){
-        $new_password_err = "Please enter the new password.";     
-    } elseif(strlen(trim($_POST["new_password"])) < 6){
-        $new_password_err = "La contraseña al menos debe tener 6 caracteres.";
-    } else{
-        $new_password = trim($_POST["new_password"]);
-    }
-    
-    // Validate confirm password
-    if(empty(trim($_POST["confirm_password"]))){
-        $confirm_password_err = "Por favor confirme la contraseña.";
-    } else{
-        $confirm_password = trim($_POST["confirm_password"]);
-        if(empty($new_password_err) && ($new_password != $confirm_password)){
-            $confirm_password_err = "Las contraseñas no coinciden.";
-        }
-    }
-        
-    // Check input errors before updating the database
-    if(empty($new_password_err) && empty($confirm_password_err)){
-        // Prepare an update statement
-        $sql = "UPDATE users SET password = ? WHERE id_user = ?";
-        
-        if($stmt = mysqli_prepare($link, $sql)){
-            // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "si", $param_password, $param_id);
-            
-            // Set parameters
-            $param_password = password_hash($new_password, PASSWORD_DEFAULT);
-            $param_id = $_SESSION["id_user"];
-            
-            // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
-                // Password updated successfully. Destroy the session, and redirect to login page
-                session_destroy();
-                header("location: iniciosesion.php");
-                exit();
-            } else{
-                echo "Algo salió mal, por favor vuelva a intentarlo.";
-            }
-        }
-        
-        // Close statement
-        mysqli_stmt_close($stmt);
-    }
-    
-    // Close connection
-    mysqli_close($link);
-}
+<?php 
+	session_start(); 
+
+	if (!isset($_SESSION['correo'])) {
+		$_SESSION['msg'] = "You must log in first";
+		header('location: iniciosesion.php');
+	}
+
+	if (isset($_GET['logout'])) {
+		session_destroy();
+		unset($_SESSION['correo']);
+		header("location: iniciosesion.php");
+	}
+	require 'database.php';
+	$where = "";
+   
+	 if(!empty($_POST)){
+		 $nombre= $_POST['nombre'];
+   
+		 if(!empty($nombre)){
+			$where= "WHERE nombre ='$nombre'";
+	
+		 }
+	 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -89,14 +43,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	<body>
 
 		<!-- Header -->
-            <header id="header">
+			<header id="header">
 				<h1><a href="indexcliente.php">Ticket Express</a></h1>
 				<nav id="nav">
 					<ul>
-                        <li><a href="profiel.php"><?php echo htmlspecialchars($_SESSION["correo"]); ?></a></li>	
+						
+						<li><?php  if (isset($_SESSION['correo'])) : ?>
+						<a href="profiel.php"><?php echo $_SESSION['correo']; ?></a>
+						<?php endif ?></li>	
 						<li><a href="indexcliente.php">Inicio</a></li>
 						<li><a href="infocliente.php">Información</a></li>
 						<li><a href="helpcliente.php">Ayuda</a></li>
+						<li><a href="viewCart.php" title="View Cart"><img src="images/logocarrito.png" width="30" height="30"></a></li>
 						<li><a href="salir.php" class="button special">Salir</a></li>
 					</ul>
 				</nav>
@@ -104,32 +62,25 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 		<!-- Main -->
 		
+		
 			<section id="main" class="wrapper">
-			<a href="viewCart.php" class="cart-link" title="View Cart">Carrito</a> 
 				<div class="container">
-						<div class="4u$ 12u$(4) <?php echo (!empty($new_password_err)) ? 'has-error' : ''; ?>">
+						<div class="4u$ 12u$(4)">
+							<label>Nombre</label>
+							<?php
+        					$query = $mysqli->query("SELECT * FROM clientes ORDER BY id_user DESC LIMIT 10");
+        					if($query->num_rows > 0){ 
+            				while($row = $query->fetch_assoc()){
+        					?>
+							<?php echo $row['nombre']; ?>
+							<?php }}?>
                             <label>Correo</label>
-                            <?php echo htmlspecialchars($_SESSION["correo"]); ?>
+							<?php echo $_SESSION['correo']; ?>
+						
                         </div>
 						</br>
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post"> 
-                        <div class="4u$ 12u$(4) <?php echo (!empty($new_password_err)) ? 'has-error' : ''; ?>">
-                            <label>Nueva contraseña</label>
-                            <input type="password" name="new_password" class="form-control" value="<?php echo $new_password; ?>" placeholder="Ingresar Nueva Contraseña">
-                            <span class="help-block"><?php echo $new_password_err; ?></span>
-                        </div>
-                        <div class="4u$ 12u$(4) <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
-                            <label>Confirmar contraseña</label>
-                            <input type="password" name="confirm_password" class="form-control" placeholder="Confirmar Contraseña">
-                            <span class="help-block"><?php echo $confirm_password_err; ?></span>
-                        </div>
-						</br>
-                        <div class="4u$ 12u$(4)">
-                            <input type="submit" class="special" value="Enviar">
-                        </div>
-                    </form>
-					
 				</div>
+				
 			</section>
 
 		<!-- Footer -->

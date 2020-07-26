@@ -1,7 +1,8 @@
 <?php
  require 'database.php';
- $sql="SELECT * FROM ciudades";
+ $sql="SELECT * FROM vuelo";
  $resultado = $mysqli->query($sql); 
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +16,7 @@
 		<script src="js/skel.min.js"></script>
 		<script src="js/skel-layers.min.js"></script>
 		<script src="js/init.js"></script>
-		<script src="js/check.js"></script>
+		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 		
@@ -92,13 +93,13 @@
 										<h3>Fecha Ida:</h3>
 									</div>
 									<div class="6u(small)">
-										<input type="date" name="fecha_salida">
+										<input type="date" name="fecha_salida" value="" min="2020-05-01" max="2021-12-31">
 									</div>
 									<div class="6u(small)">
 										<h3>Fecha Vuelta:</h3>
 									</div>
 									<div class="6u(small)">
-										<input type="date" name="fecha_llegada" id="discountPercentage" th:field="*{discountPercentage}" enable>
+										<input type="date" name="fecha_llegada" value="" min="2020-05-01" max="2021-12-31" id="discountPercentage" th:field="*{discountPercentage}" enable>
 									</div>
 									<div class="6u(small)">
 										<ul class="actions">
@@ -192,5 +193,6 @@
 					</div>
 				</div>
 			</footer> 
+			<script src="js/check.js"></script>
 	</body>
 </html>
