@@ -52,12 +52,10 @@
 				<div class="container">
 
 					<header class="major">
+					<h2>VISUALIZACIÓN DE VUELOS</h2>
 					
 					</header>
 			
-		<div class="row" style="text-align:center">
-			<h3>Visualización de Vuelos</h3>
-		</div>
 		<form method="post" class="form" action="reporte.php">
 			<button type="submit" id="export_data" name="export_data" value="Export" class="button"><i>Exportar a CSV</i></button>
 		</form>
@@ -104,8 +102,8 @@
                    <td><?php echo $row['asientos']; ?></td>
                    <td><?php echo $row['num_vuelo']; ?></td>
 				   <td><?php echo $row['valor_pasaje']; ?></td>
-                   <td><a href="actualizarvuelo.php?id_vuelo=<?php echo $row['id_vuelo'];?>" class="btn btn-info"><i class="fa fa-pencil-square-o"></i>Edit</a></td>
-                   <td><a href="eliminarvuelo.php?id_vuelo=<?php echo $row['id_vuelo'];?>" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i> Delete</a></td>
+                   <td><a href="actualizarvuelo.php?id=<?php echo $row['id'];?>" class="btn btn-info"><i class="fa fa-pencil-square-o"></i>Edit</a></td>
+                   <td><a href="eliminarvuelo.php?id=<?php echo $row['id'];?>" class="btn btn-danger"><i class="fa fa-trash-o fa-lg"></i> Delete</a></td>
                    </tr>
                 <?php } ?>
 

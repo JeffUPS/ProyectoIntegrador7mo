@@ -2,9 +2,9 @@
 
   require 'database.php';
   
-  $id = $_GET['id_vuelo'];
+  $id = $_GET['id'];
   
-$sql = "DELETE FROM vuelo WHERE id_vuelo = '$id' ";
+$sql = "DELETE FROM vuelo WHERE id = '$id' ";
 					
 $resultado = $mysqli->query($sql);
 
