@@ -52,10 +52,12 @@
 				<div class="container">
 
 					<header class="major">
-					<h2>VISUALIZACIÓN DE VUELOS</h2>
 					
 					</header>
 			
+		<div class="row" style="text-align:center">
+			<h3>Visualización de Vuelos</h3>
+		</div>
 		<form method="post" class="form" action="reporte.php">
 			<button type="submit" id="export_data" name="export_data" value="Export" class="button"><i>Exportar a CSV</i></button>
 		</form>

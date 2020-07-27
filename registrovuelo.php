@@ -55,7 +55,7 @@
 						<li><?php  if (isset($_SESSION['correo'])) : ?>
 						<a href="profiel.php"><?php echo $_SESSION['correo']; ?></a>
 						<?php endif ?></li>	
-						<li><a href="admine.php">Inicio</a></li>
+						<li><a href="admin.php">Inicio</a></li>
 						<li><a href="registrovuelo.php">Registrar Vuelo</a></li>
 						<li><a href="verclientes.php">Ver Clientes</a></li>
 						<li><a href="salir.php" class="button special">Salir</a></li>

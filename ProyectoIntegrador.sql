@@ -1,8 +1,8 @@
 
 CREATE TABLE ciudadesti (
+                id_destino INT NOT NULL,
                 ciudad_destino VARCHAR(50) NOT NULL,
                 ranking INT NOT NULL,
-                id_destino INT NOT NULL,
                 PRIMARY KEY (ciudad_destino)
 );
 
@@ -40,7 +40,7 @@ CREATE TABLE boleto (
 
 
 CREATE TABLE clientes (
-                id_user INT AUTO_INCREMENT NOT NULL,
+                id INT AUTO_INCREMENT NOT NULL,
                 nombre VARCHAR(50) NOT NULL,
                 correo VARCHAR(50) NOT NULL,
                 password VARCHAR(50) NOT NULL,
@@ -85,7 +85,7 @@ ON UPDATE NO ACTION;
 
 ALTER TABLE compras ADD CONSTRAINT pasajero_compras_fk
 FOREIGN KEY (customer_id)
-REFERENCES pasajero (id)
+REFERENCES clientes (id)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 

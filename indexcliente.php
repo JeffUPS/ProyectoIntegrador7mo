@@ -15,7 +15,7 @@
 ?>
 <?php
  require 'database.php';
- $sql="SELECT * FROM vuelo";
+ $sql="SELECT DISTINCTROW ciudad_origen,ciudad_destino FROM ciudad,ciudadesti";
  $resultado = $mysqli->query($sql); 
 ?>
 <!DOCTYPE html>
@@ -30,7 +30,6 @@
 		<script src="js/skel.min.js"></script>
 		<script src="js/skel-layers.min.js"></script>
 		<script src="js/init.js"></script>
-		<script src="js/check.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 		
@@ -72,15 +71,17 @@
 					</header>
 
 					
-					<div class="container 150%">
+						<div class="container 150%">
 							<div class="row">
 								<div class="4u(3)">
-									<input type="radio" id="isDiscounted" name="isDiscounted" value= 1 th:field="*{discounted}" checked>
-									<label for="isDiscounted">Ida y Vuelta</label>
+									<input type="radio" id="priority-normal" name="priority" checked>
+									<label for="priority-normal">Ida y Vuelta</label>
 								</div>
 							<div class="4u(3)">
-								<input type="radio" id="isNotDiscounted" name="isDiscounted" value= 0 th:field="*{discounted}">
-								<label for="isNotDiscounted">Solo Ida</label>
+								<input type="radio" id="priority-normal" name="priority">
+								<label for="priority-low">Solo Ida</label>
+							</div>
+
 							</div>
 							<form action="vueloscliente.php" method="POST">
 								<div class="row uniform">
@@ -118,7 +119,7 @@
 										<h3>Fecha Vuelta:</h3>
 									</div>
 									<div class="6u(small)">
-										<input type="date" name="fecha_llegada"  value="2020-07-22" min="2020-05-01" max="2021-12-31" id="discountPercentage" th:field="*{discountPercentage}" >
+										<input type="date" name="fecha_llegada"  value="2020-07-22" min="2020-05-01" max="2021-12-31">
 									</div>
 									<div class="6u(small)">
 										<ul class="actions">
@@ -211,6 +212,7 @@
 					</div>
 				</div>
 			</footer>
-			<script src="js/check.js"></script>
+	
+	<script src="js/check.js"></script>
 	</body>
 </html>

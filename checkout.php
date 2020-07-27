@@ -12,10 +12,10 @@ if($cart->total_items() <= 0){
 }
 
 // set customer ID in session
-$_SESSION['sessCustomerID']=2;
+$_SESSION['sessCustomerID'] = 2;
 
 // get customer details by session customer ID
-$query = $mysqli->query("SELECT * FROM clientes WHERE id_user = ".$_SESSION['sessCustomerID']);
+$query = $mysqli->query("SELECT * FROM clientes WHERE id = ".$_SESSION['sessCustomerID']);
 $custRow = $query->fetch_assoc();
 ?>
 <?php
@@ -138,13 +138,7 @@ if (isset($_GET['logout'])) {
         </tr>
     </tfoot>
     </table>
-    <div class="shipAddr">
-        <h4>Datos</h4>
-		
-        <p><?php echo $custRow['nombre']; ?></p>
-        <p><?php echo $custRow['correo']; ?></p>
-    </div>
-    <div class="footBtn">
+    <div >
         <a href="vueloscliente.php" class="button"><i class="glyphicon glyphicon-menu-left"></i>Continuar Comprando</a>
         <a href="cartAction.php?action=placeOrder" class="button">Realizar Compra</a>
     </div>

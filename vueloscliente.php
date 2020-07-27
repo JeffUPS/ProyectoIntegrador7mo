@@ -16,22 +16,20 @@ session_start();
  require 'database.php';
  $where = "";
 
-  if(!empty($_POST)){
-      $ciudad_origen= $_POST['ciudad_origen'];
-      $ciudad_destino= $_POST['ciudad_destino'];
-      $fecha_salida= $_POST['fecha_salida'];
-      $fecha_llegada=$_POST['fecha_llegada'];
+ if(!empty($_POST)){
+	$ciudad_origen= $_POST['ciudad_origen'];
+	$ciudad_destino= $_POST['ciudad_destino'];
+	$fecha_salida= $_POST['fecha_salida'];
+	$fecha_llegada=$_POST['fecha_llegada'];
 
-      if(!empty($ciudad_origen and $ciudad_destino and $fecha_salida and $fecha_llegada)){
-         $where= "WHERE ciudad_origen ='$ciudad_origen' AND ciudad_destino='$ciudad_destino' AND fecha_salida='$fecha_salida' AND fecha_llegada='$fecha_llegada'";
-         #AND ciudad_origen ='$valor2' AND num_vuelo = '$valor1'";
-         #"WHERE ciudad_origen LIKE '%$ciudad_origen%' AND ciudad_destino LIKe '%$ciudad_destino%' AND fecha_salida LIKE '%$fecha_salida%' AND fecha_llegada LIKE '%$fecha_llegada%'";
-         
-      }
-  }
+	if(!empty($ciudad_origen and $ciudad_destino and $fecha_salida and $fecha_llegada)){
+	   $where= "WHERE ciudad_origen ='$ciudad_origen' AND ciudad_destino='$ciudad_destino' AND fecha_salida='$fecha_salida' AND fecha_llegada='$fecha_llegada'";
 
-  $ql= "SELECT * FROM vuelo $where";
-  $resultado1 = $mysqli->query($ql);
+	}
+}
+
+$ql= "SELECT * FROM vuelo $where";
+$resultado1 = $mysqli->query($ql);
 ?>
 
 
@@ -40,7 +38,7 @@ session_start();
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<title>Ticket Express | Administrador</title>
+		<title>Ticket Express | Vuelos</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
@@ -73,51 +71,59 @@ session_start();
 			</header>
 
 		<!-- Main -->
-		<section id="one" class="wrapper style1 special">
+		<section id="two" class="wrapper style2 special">
 			<div class="container">
 				<header class="major">
 					<h2>Viaja a tus lugares favoritos</h2>
 				</header>
-				<div class="row">
+							<hr>
 					<div class="12u$">
-					<?php
-        			$query = $mysqli->query("SELECT * FROM vuelo ORDER BY id DESC LIMIT 10");
-        			if($query->num_rows > 0){ 
-            		while($row = $query->fetch_assoc()){
-        			?>
-						<section class="box">	
-                            	<div>
-                            		<img src="images/avion.png" width="30" height="30">
-									<?php echo $row['ciudad_origen']; ?><b> -> </b><?php echo $row['ciudad_destino']; ?>
-								<div class="4u">
-									
-									<b>Ida:</b>
-									<?php echo $row['fecha_salida']; ?>
-									<b>Hora:</b>
-									<?php echo $row['hora_salida']; ?>Hs
-									<b>Vuelta:</b>
-									<?php echo $row['fecha_llegada']; ?>
-									<b>Hora:</b>
-									<?php echo $row['hora_llegada']; ?>Hs
-									<?php echo $row['aereolinea']; ?>
-									<?php echo $row['num_vuelo']; ?>
-								</div>
-								<div class="col-md-6">
-                            		<p class="lead"><?php echo '$'.$row["valor_pasaje"].' USD'; ?></p>
-                        		</div>
-								<div>
+						<!-- Consulta Busqueda de Vuelo -->
+						<?php while($row = $resultado1->fetch_array(MYSQLI_ASSOC)) { ?>
+							<!-- Consulta Compra de Vuelo -->
+							<?php $query = $mysqli->query("SELECT * FROM vuelo ORDER BY id DESC LIMIT 10");
+        						if($query->num_rows > 0){ 
+            						while($row = $query->fetch_assoc()){
+							?>
+					<section class="links">
+						<div class="row">
+							<section class="3u 6u(medium) 12u$(small)">
+								<img src="images/avion.png" width="30" height="30">
+								<b><?php echo $row['ciudad_origen']; ?> -> <?php echo $row['ciudad_destino']; ?></b>
+							</section>
+							<section class="3u 6u$(medium) 12u$(small)">
+								<?php echo '<img src="'.$row["foto_aereo"].'" width="100" heigth="100">';?>	
+								<b>Salida:</b>
+								<?php echo $row['fecha_salida']; ?></br>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<b>Hora:</b>
+								<?php echo $row['hora_salida']; ?>Hs
+							</section>
+							<section class="3u 6u(medium) 12u$(small)">
+									</br>
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<b>Llegada:</b>
+								<?php echo $row['fecha_llegada'];?></br>
+								<b>Hora:</b>
+								<?php echo $row['hora_llegada']; ?>Hs</br>
+								<b><?php echo $row['aereolinea']; ?></br>
+								<?php echo $row['num_vuelo']; ?></b>
+							</section>
+									</br>
+							<section class="3u$ 6u$(medium) 12u$(small)">
+								<h3>Costo</h3>
+								<h4>$<?php echo $row['valor_pasaje']; ?>USD</h4></br>
 								<a class="button" href="cartAction.php?action=addToCart&id=<?php echo $row["id"]; ?>">Comprar</a>
-								</div>
-						</section>
-						<?php } }else{ ?>
-        				<p>Product(s) not found.....</p>
-        				<?php } ?>
-							
-						
-					</div>
-				
+									</br>
+							</section>
+						</div>
+					</section>
 					
-				</div>
+								<?php } }else{ ?>
+        								<p>No Exitsten Vuelo</p>
+									<?php } ?>
+						<?php } ?>
+					</div>
 			</div>
 		</section>
 

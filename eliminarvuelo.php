@@ -4,7 +4,7 @@
   
   $id = $_GET['id'];
   
-$sql = "DELETE FROM vuelo WHERE id = '$id' ";
+$sql = "DELETE FROM vuelo WHERE id= '$id' ";
 					
 $resultado = $mysqli->query($sql);
 

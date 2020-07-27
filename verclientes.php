@@ -47,11 +47,13 @@ session_start();
 				<div class="container">
 
 					<header class="major">
-					<h2>VISUALIZACIÓN DE CLIENTES</h2>
+					
 					</header>
-		<form method="post" class="form" action="reporte_users.php">
-			<button type="submit" id="export_data" name="export_data" value="Export" class="button"><i>Exportar a CSV</i></button>
-		</form>
+			
+		<div class="row" style="text-align:center">
+			<h3>Visualización Clientes</h3>
+		</div>
+		
 		<div class="row table-responsive">
 			<table class="table table-striped">
 				<thead>
@@ -66,7 +68,7 @@ session_start();
                 <?php while($row = $resultado->fetch_array(
                     MYSQLI_ASSOC))  { ?>
                    <tr>
-                   <td><?php echo $row['id_user']; ?></td>
+                   <td><?php echo $row['id']; ?></td>
                    <td><?php echo $row['nombre']; ?></td>
                    <td><?php echo $row['correo']; ?></td>
                     </tr>
@@ -74,7 +76,11 @@ session_start();
 
                  </tbody>
             </table>
-        </div>
+
+
+
+
+				</div>
 			</section>
 
 		<!-- Footer -->

@@ -22,9 +22,8 @@ require 'database.php';
 	$where = "";
    
 	 if(!empty($_POST)){
-		 $nombre_pasajero= $_POST['nombre_pasajero'];
-		 $num_pasaporte= $_POST['num_pasaporte'];
-		 $fecha_nacimiento= $_POST['fecha_nacimiento'];
+		 $nombre= $_POST['nombre'];
+		 $correo= $_POST['correo'];
 		 $ciudad_origen= $_POST['ciudad_origen'];
 		 $ciudad_destino= $_POST['ciudad_destino'];
 		 $fecha_salida= $_POST['fecha_salida'];
@@ -36,8 +35,8 @@ require 'database.php';
 
 
    
-		 if(!empty($nombre_pasajero) && !empty($num_pasaporte) && !empty($fecha_nacimiento) && !empty($ciudad_origen) && !empty($ciudad_destino) && !empty($fecha_salida) && !empty($fecha_llegada) && !empty($hora_salida) && !empty($hora_llegada) && !empty($aereolinea) && !empty($num_vuelo) ){
-			$where= "WHERE nombre_pasajero ='$nombre_pasajero' AND num_pasaporte='$num_pasaporte' AND fecha_nacimiento='$fecha_nacimiento' AND ciudad_origen='$ciudad_origen' AND ciudad_destino='$ciudad_destino' AND fecha_salida='$fecha_salida' AND fecha_llegada='$fecha_llegada' AND hora_salida='$hora_salida' AND hora_llegada='$hora_llegada' AND aereolinea='$aereolinea' AND num_vuelo='$num_vuelo'";
+		 if(!empty($nombre) && !empty($correo) && !empty($ciudad_origen) && !empty($ciudad_destino) && !empty($fecha_salida) && !empty($fecha_llegada) && !empty($hora_salida) && !empty($hora_llegada) && !empty($aereolinea) && !empty($num_vuelo) ){
+			$where= "WHERE nombre ='$nombre' AND correo='$correo' AND ciudad_origen='$ciudad_origen' AND ciudad_destino='$ciudad_destino' AND fecha_salida='$fecha_salida' AND fecha_llegada='$fecha_llegada' AND hora_salida='$hora_salida' AND hora_llegada='$hora_llegada' AND aereolinea='$aereolinea' AND num_vuelo='$num_vuelo'";
 	
 		 }
 	 }
@@ -103,17 +102,16 @@ require 'database.php';
 					</header>
                     <p>Su compra se ha realizado correctamente.. ID de su compra es #<?php echo $_GET['id']; ?></p>
 					<?php
-        					$query = $mysqli->query("Select DISTINCT nombre_pasajero,num_pasaporte,fecha_nacimiento,ciudad_origen,ciudad_destino,fecha_salida,fecha_llegada,hora_salida,hora_llegada,num_vuelo,aereolinea from vuelo,compras,pasajero,boleto where pasajero.id=compras.customer_id and compras.id=boleto.order_id and boleto.product_id=vuelo.id");
+        					$query = $mysqli->query("Select DISTINCT nombre,correo,ciudad_origen,ciudad_destino,fecha_salida,fecha_llegada,hora_salida,hora_llegada,num_vuelo,aereolinea from vuelo,compras,clientes,boleto where clientes.id=compras.customer_id and compras.id=boleto.order_id and boleto.product_id=vuelo.id");
         					if($query->num_rows > 0){ 
-            				while($row = $query->fetch_assoc()){
+            				$row = $query->fetch_assoc()
         					?>
-							<h2>Datos Pasajero</h2>
-							NOMBRE:
+							<h2>Datos clientes</h2>
+							NOMBRE DEL clientes:
 							<?php echo $row['nombre']; ?>
 							</br></br>
-							NUMERO CORREO:
+							NUMERO DE PASAPORTE:
 							<?php echo $row['correo']; ?>
-							</br></br>
 							</br>
 							-------------------------------------------------------------------------------------------------------------------------------
 							<h2>Datos Vuelo</h2>
@@ -133,7 +131,7 @@ require 'database.php';
 							
 							
 							</br>
-							<?php }}?>
+							<?php }?>
 					</div>
 					</div>
 					<header class="major">

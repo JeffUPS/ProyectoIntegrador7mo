@@ -1,8 +1,8 @@
 <?php
  require 'database.php';
- $id_vuelo = $_GET['id'];
+ $id = $_GET['id'];
 
- $sql = "SELECT * FROM vuelo WHERE id='$id_vuelo'";
+ $sql = "SELECT * FROM vuelo WHERE id='$id'";
  $resultado = $mysqli->query($sql); 
  
  $row = $resultado->fetch_assoc();
@@ -64,7 +64,7 @@
       <h2 style="text-align:center">MODIFICAR VUELO</h2>
     </div>
        <form action="actualizar.php" method="POST" enctype="multipart/form-data">
-          <input type= "hidden" name="id_vuelo" value="<?php echo $row['id']; ?>" >
+          <input type= "hidden" name="id" value="<?php echo $row['id']; ?>" >
           Ciudad Origen:
           <select name= "ciudad_origen">
              <option value="Seleccione">---SELECCIONE---</option>

@@ -61,26 +61,38 @@
 			</header>
 
 		<!-- Main -->
-		
-		
-			<section id="main" class="wrapper">
+			<section id="two" class="wrapper style2 special">
 				<div class="container">
-						<div class="4u$ 12u$(4)">
-							<label>Nombre</label>
-							<?php
-        					$query = $mysqli->query("SELECT * FROM clientes ORDER BY id_user DESC LIMIT 10");
-        					if($query->num_rows > 0){ 
-            				while($row = $query->fetch_assoc()){
-        					?>
-							<?php echo $row['nombre']; ?>
-							<?php }}?>
-                            <label>Correo</label>
-							<?php echo $_SESSION['correo']; ?>
-						
-                        </div>
-						</br>
+					<header class="major">
+						<h3>Perfil</h3>
+					</header>
+					<section class="profiles">
+						<div class="row">
+							<section class="3u 4u(small) profile">
+								<img src="images/profile_placeholder.gif" alt="" />
+								<?php
+        							$query = $mysqli->query("SELECT * FROM clientes ORDER BY id DESC LIMIT 10");
+        							if($query->num_rows > 0){ 
+            						$row = $query->fetch_assoc()
+								?>
+								<h5>Nombre</h5>
+								<?php echo $row['nombre']; ?>
+								<?php }?>
+								<h5>Correo</h5>
+								<?php echo $_SESSION['correo']; ?>
+							</section>
+							<section class="3u 6u$(medium) 12u$(xsmall) profile">
+								<div class="12u$ 12u$(6)">
+									<input type="text" name="correo" placeholder="Ingrese Nueva Contraseña" required/>
+								</div>
+									</br>
+								<div class="12u$ 12u$(6)">
+									<input type="text" name="correo" placeholder="Confirmar Nueva Contraseña" required/>
+								</div>
+							</section>
+						</div>
+					</section>
 				</div>
-				
 			</section>
 
 		<!-- Footer -->

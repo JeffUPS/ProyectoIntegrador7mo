@@ -11,7 +11,7 @@
      $resultado = $mysqli->query($sql);
 
      while($row = $resultado->fetch_assoc())
-         fputcsv($salida,array($row['id'],$row['ciudad_origen'],$row['ciudad_destino'],$row['fecha_salida'],$row['fecha_llegada'],$row['hora_salida'],$row["hora_llegada"],$row["aereolinea"],$row['asientos'],$row['num_vuelo'],$row['valor_pasaje']));
+         fputcsv($salida,array($row['id_vuelo'],$row['ciudad_origen'],$row['ciudad_destino'],$row['fecha_salida'],$row['fecha_llegada'],$row['hora_salida'],$row["hora_llegada"],$row["aereolinea"],$row['asientos'],$row['num_vuelo'],$row['valor_pasaje']));
 
  }
 ?>
