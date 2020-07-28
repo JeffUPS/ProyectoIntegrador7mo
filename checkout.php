@@ -12,10 +12,10 @@ if($cart->total_items() <= 0){
 }
 
 // set customer ID in session
-$_SESSION['sessCustomerID'] = 2;
+$_SESSION['sessCustomerID']=2;
 
 // get customer details by session customer ID
-$query = $mysqli->query("SELECT * FROM clientes WHERE id = ".$_SESSION['sessCustomerID']);
+$query = $mysqli->query("SELECT * FROM clientes WHERE id_user = ".$_SESSION['sessCustomerID']);
 $custRow = $query->fetch_assoc();
 ?>
 <?php
@@ -138,7 +138,26 @@ if (isset($_GET['logout'])) {
         </tr>
     </tfoot>
     </table>
-    <div >
+	<form method="post" action="guardarpasajero.php">
+						<header>
+							<h2>Datos del Pasajero</h2>
+						</header>
+						<div class="row uniform 100%">
+							<div class="4u$ 12u$(4)">
+								<input type="text" name="nombre_pasajero" id="name" value="" placeholder="Ingrese el Nombre del Pasajero" required/>
+							</div>
+							<div class="4u$ 12u$(4)">
+								<input type="text" name="num_pasaporte" id="pasajero" value="" placeholder="Ingrese el Numero de Pasaporte" required/>
+							</div>
+							<div class="4u$ 12u$(4)">
+								<input type="date" name="fecha_nacimiento" id="fecha_nacimiento" value="" placeholder="Ingrese su fecha de nacimiento" required/>
+							</div>
+							<div class="4u$ 12u$(4)">
+								<input type="submit" value="Guardar Datos" class="special" />
+							</div>		
+							
+							
+    <div class="footBtn">
         <a href="vueloscliente.php" class="button"><i class="glyphicon glyphicon-menu-left"></i>Continuar Comprando</a>
         <a href="cartAction.php?action=placeOrder" class="button">Realizar Compra</a>
     </div>

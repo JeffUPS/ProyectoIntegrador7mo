@@ -18,6 +18,9 @@
 		
 	</head>
 	<body >
+
+  
+
 		<!-- Header -->
 			<header id="header">
 				<h1><a href="index.php">Ticket Express</a></h1>
@@ -31,25 +34,24 @@
 				</nav>
 			</header>
 
-			<section id="three" class="wrapper style2 special">
+			<section id="main" class="wrapper">
 				<div class="container">
-					<header class="major">
-						<h2>Registro de Clientes</h2>
-					</header>
-				</div>
-				<div class="container 50%">
-					<form method="post" action="registrar.php">
-						<div class="row uniform">
-							<div class="12u$">
+				  	<form method="post" action="registrar.php">
+						<header>
+							<h2>Registro Clientes</h2>
+						</header>
+						<div class="row uniform 100%">
+
+							<div class="4u$ 12u$(4)">
 								<input type="text" name="nombre" value="<?php echo $nombre; ?>" placeholder="Ingresar su Nombre" required/>
 							</div>
-							<div class="12u$">
+                            <div class="4u$ 12u$(4)">
 								<input type="email" name="correo" value="<?php echo $correo; ?>" placeholder="Ingresar su Correo" required/>
 							</div>
-							<div class="12u$">
+							<div class="4u$ 12u$(4)">
 								<input type="password" name="password_1" placeholder="Ingrese su Contraseña" required />
-							</div>
-							<div class="12u$">
+                            </div>
+                            <div class="4u$ 12u$(4)">
 								<input type="password" name="password_2"  placeholder="Confirmar Contraseña" required/>
 							</div>
 							<div class="12u$">
@@ -57,12 +59,13 @@
 									<li><button type="submit" class="button" name="reg_user">Registrar</button></li>
 								</ul>
 							</div>
+
 						</div>
 					</form>
-				</div>
+					
+				</div>	
 			</section>
 			
-		
 
 	<footer id="footer">
 				<div class="container">

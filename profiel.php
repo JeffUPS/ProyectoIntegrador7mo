@@ -71,15 +71,17 @@
 							<section class="3u 4u(small) profile">
 								<img src="images/profile_placeholder.gif" alt="" />
 								<?php
-        							$query = $mysqli->query("SELECT * FROM clientes ORDER BY id DESC LIMIT 10");
-        							if($query->num_rows > 0){ 
-            						$row = $query->fetch_assoc()
+        							$sql= "SELECT * FROM clientes WHERE correo='$_SESSION[correo]'";
+										$resultado = $mysqli->query($sql);
+										 while($row = $resultado->fetch_array(
+										   MYSQLI_ASSOC))  { 
 								?>
 								<h5>Nombre</h5>
 								<?php echo $row['nombre']; ?>
 								<?php }?>
 								<h5>Correo</h5>
 								<?php echo $_SESSION['correo']; ?>
+							
 							</section>
 							<section class="3u 6u$(medium) 12u$(xsmall) profile">
 								<div class="12u$ 12u$(6)">

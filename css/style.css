@@ -212,7 +212,7 @@
 	}
 
 	label {
-		color: #ff0000;
+		color: #474747;
 		display: block;
 		font-size: 0.9em;
 		font-weight: 700;
@@ -422,7 +422,6 @@
 			border-radius: 0;
 			padding: 0;
 		}
-		
 
 /* Icon */
 
@@ -1078,7 +1077,7 @@
 			}
 
 				.wrapper.style1 .box h2, .wrapper.style1 .box h3, .wrapper.style1 .box h4, .wrapper.style1 .box h5, .wrapper.style1 .box h6 {
-					color: #ff0000;
+					color: #858585;
 				}
 
 		.wrapper.style2 .profiles {

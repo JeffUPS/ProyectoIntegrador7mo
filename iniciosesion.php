@@ -32,32 +32,30 @@
 					</ul>
 				</nav>
 			</header>
-			<section id="three" class="wrapper style2 special">
-				<div class="container">
-					<header class="major">
-						<h2>Inicio de Sesion</h2>
-					</header>
-				</div>
-				<div class="container 50%">
+
+			<section id="main" class="wrapper" style="text-align:center" >
 					<form method="post" action="iniciosesion.php">
-						<div class="row uniform">
-							<div class="12u 12u(small)">
+						<header class="major">
+							<h2>Inicio de Sesion</h2>
+						</header>
+						<div class="row uniform 100%">
+							<div class="4u$ 12u$(4)">
 								<input type="text" name="correo" placeholder="Ingrese su Correo Electronico" required/>
 							</div>
-							<div class="12u 12u$">
+							<div class="4u$ 12u$(4)">
 								<input type="password" name="password" placeholder="Ingrese su Contraseña" required/>
 							</div>
-							<div class="12u 12u$">
-								</br>No eres miembro?<a href="registrar.php"><b>&nbsp;&nbsp;Unete Ahora</b></a></br>
+							<div class="4u$ 12u$(4)"
+							</br>No eres miembro?<a href="registrar.php"><b>  Unete Ahora</b></a></br>
 							</div>
-							<div class="12u$">
+							<div class="4u 12u$(4)">
 								<ul class="actions">
 									<li><button type="submit" class="button fit" name="login_user">Iniciar Sesion</button></li>
 								</ul>
 							</div>
 						</div>
+						
 					</form>
-				</div>
 			</section>
 		
 
