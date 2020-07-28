@@ -53,10 +53,13 @@
 				<h1><a href="admin.php">Ticket Express</a></h1>
 				<nav id="nav">
 					<ul>
+						<li><?php  if (isset($_SESSION['correo'])) : ?>
+						<a href="profieladmin.php"><?php echo $_SESSION['correo']; ?></a>
+						<?php endif ?></li>	
 						<li><a href="admin.php">Inicio</a></li>
 						<li><a href="registrovuelo.php">Registrar Vuelo</a></li>
 						<li><a href="verclientes.php">Ver Clientes</a></li>
-						<li><a href="calificaciones.php">Encuesta</a></li>
+						<li><a href="calificaciones.php">Ver Calificaciones</a></li>
 						<li><a href="salir.php" class="button special">Salir</a></li>
 						
 					</ul>
@@ -68,10 +71,12 @@
 				<div class="container">
 
 					<header class="major">
-					<h2>VISUALIZACIÓN DE VUELOS</h2>
 					
 					</header>
 			
+		<div class="row" style="text-align:center">
+			<h3>Visualización de Vuelos</h3>
+		</div>
 		<form method="post" class="form" action="reporte.php">
 			<button type="submit" id="export_data" name="export_data" value="Export" class="button"><i>Exportar a CSV</i></button>
 		</form>

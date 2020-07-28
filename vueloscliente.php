@@ -79,7 +79,7 @@ $resultado1 = $mysqli->query($ql);
 							<hr>
 					<div class="12u$">
 						<!-- Consulta Busqueda de Vuelo -->
-						<?php while($row = $resultado1->fetch_array(MYSQLI_ASSOC)) {?>
+						<?php while($row = $resultado1->fetch_array(MYSQLI_ASSOC)) { ?>
 							<!-- Consulta Compra de Vuelo -->
 							<?php $query = $mysqli->query("SELECT * FROM vuelo ORDER BY id DESC LIMIT 10");
         						if($query->num_rows > 0){ 

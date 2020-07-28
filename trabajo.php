@@ -1,9 +1,8 @@
-<?php include('registro.php') ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<title>Ticket Express | Registro</title>
+		<title>Ticket Express | Información</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
@@ -12,68 +11,52 @@
 		<script src="js/skel.min.js"></script>
 		<script src="js/skel-layers.min.js"></script>
 		<script src="js/init.js"></script>
-        <link rel="stylesheet" href="css/skel.css" />
-		<link rel="stylesheet" href="css/style.css" />
-		<link rel="stylesheet" href="css/style-xlarge.css" />
-		
+			<link rel="stylesheet" href="css/skel.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-xlarge.css" />
 	</head>
-	<body >
+	<body>
+
 		<!-- Header -->
-			<header id="header">
+            <header id="header">
 				<h1><a href="index.php">Ticket Express</a></h1>
 				<nav id="nav">
 					<ul>
 						<li><a href="index.php">Inicio</a></li>
-						<li><a href="generic.php">Información</a></li>
-						<li><a href="elements.php">Ayuda</a></li>
+						<li><a href="info.php">Información</a></li>
+						<li><a href="help.php">Ayuda</a></li>
 						<li><a href="iniciosesion.php" class="button special">Inicio Sesión</a></li>
 					</ul>
 				</nav>
 			</header>
 
-			<section id="three" class="wrapper style2 special">
-				<div class="row 150%">
-					<div class="4u 12u$(medium)">
-							<img src="images/galapagos.jpg" width="350" height="650">
-					</div>
-					<div class="4u 12u$(medium)">
-						</br></br></br>
-						<div class="container 50%">
-							<header class="major">
-							<h2>Registro de Clientes</h2>
-							</header>
-							<form method="post" action="registrar.php">
-								<div class="row uniform">
-									<div class="12u$">
-										<input type="text" name="nombre" value="<?php echo $nombre; ?>" placeholder="Ingresar su Nombre" required/>
-									</div>
-									<div class="12u$">
-										<input type="email" name="correo" value="<?php echo $correo; ?>" placeholder="Ingresar su Correo" required/>
-									</div>
-									<div class="12u$">
-										<input type="password" name="password_1" placeholder="Ingrese su Contraseña" required />
-									</div>
-									<div class="12u$">
-										<input type="password" name="password_2"  placeholder="Confirmar Contraseña" required/>
-									</div>
-									<div class="12u$">
-										<ul class="actions">
-											<li><button type="submit" class="button" name="reg_user">Registrar</button></li>
-										</ul>
-									</div>
-								</div>
-							</form>
-						</div>
-					</div>
-					<div class="4u$ 12u$(medium)">
-							<img src="images/amazonia.jpg"width="350" height="650">
-					</div>
+		<!-- Main -->
+			<section id="main" class="wrapper">
+				<div class="container">
+
+					<header class="major">
+						<h2>Trabaja en Ticket Express</h2>
+						<p>Viaja a tus lugares favoritos.</p>
+					</header>
+					<p>Trabajar para Ticket Express es una de las oportunidades más envidiadas entre los amantes de los negocios. Tenemos a los mejores aviadores, a los más apasionados, a los que no les importa siempre dar más, y volamos en las mejores aeronaves, con el apoyo continuo de los equipos mejor preparados, más profesionales e innovadores, y que tienen la seguridad siempre en mente.</p>
+					
+					<p>Como Lider de Ticket Express, disfrutará de cada vuelo sabiendo que está ofreciendo un servicio extraordinario a personas extraordinarias. Le invitamos a leer la información siguiente para familiarizarse con nuestra compañía, nuestra filosofía y los procesos de contratación</p>
+					
+					<p>Ticket Express ofrece una retribución competitiva y un excelente paquete de beneficios que consiste en:</p>
+                    <ul>
+                        <li>Salario competitivo</li>
+                        <li>Seguro médico que cubre también servicios odontológicos y oftalmológicos (desde el primer día de trabajo)</li>
+                        <li>Seguro de vida</li>
+                        <li>Seguro para discapacidad </li>
+                        <li>Pérdida de licencia </li>
+                        <li>Vacaciones pagadas </li>
+                    </ul>
 				</div>
 			</section>
 			
-		
 
-			<footer id="footer">
+		<!-- Footer -->
+        <footer id="footer">
 				<div class="container">
 					<section class="links">
 						<div class="row">
@@ -116,5 +99,6 @@
 					</div>
 				</div>
 			</footer>
+
 	</body>
 </html>

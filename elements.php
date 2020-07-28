@@ -331,7 +331,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 										</div>
 									</div>
 									<div class="4u 12u$(3)">
-										<input type="radio" id="priority-low" name="priority" checked>
+										<input type="radio" id="priority-low" name="priority" >
 										<label for="priority-low">Low Priority</label>
 									</div>
 									<div class="4u 12u$(3)">

@@ -51,17 +51,17 @@
 							<section class="3u 6u(medium) 12u$(small)">
 								<h3>Somos Ticket Express</h3>
 								<ul class="unstyled">
-									<li><a href="#">Nuestro Telefono</a></li>
-									<li><a href="#">Trabaja en Ticket Express</a></li>
-									<li><a href="#">Sobre Ticket Express</a></li>
+									<li><a href="nuestrotelefono.php">Nuestro Telefono</a></li>
+									<li><a href="trabajo.php">Trabaja en Ticket Express</a></li>
+									<li><a href="sobre.php">Sobre Ticket Express</a></li>
 								</ul>
 							</section>
 							<section class="3u 6u$(medium) 12u$(small)">
 								<h3>Confianza en tus Compras</h3>
 								<ul class="unstyled">
-									<li><a href="#">Terminos y Condiciones</a></li>
-									<li><a href="#">Politica de Privacidad</a></li>
-									<li><a href="#">Conoce las Formas de Pago</a></li>
+									<li><a href="terminoscondiciones.php">Terminos y Condiciones</a></li>
+									<li><a href="politica.php">Politica de Privacidad</a></li>
+									<li><a href="formaspago.php">Conoce las Formas de Pago</a></li>
 								</ul>
 							</section>
 							<div class="4u$ 12u$(medium)">
@@ -86,7 +86,7 @@
 						</div>
 					</div>
 				</div>
-	</footer>
+			</footer>
 
 	</body>
 </html>

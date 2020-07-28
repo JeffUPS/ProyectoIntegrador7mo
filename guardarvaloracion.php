@@ -1,3 +1,4 @@
+
 <?php
  session_start(); 
  require 'database.php';
@@ -26,17 +27,7 @@
  ('$row[id_user]','$_REQUEST[id_ciudad2]','$_REQUEST[ranking2]'),
  ('$row[id_user]','$_REQUEST[id_ciudad3]','$_REQUEST[ranking3]'),
  ('$row[id_user]','$_REQUEST[id_ciudad4]','$_REQUEST[ranking4]'),
- ('$row[id_user]','$_REQUEST[id_ciudad5]','$_REQUEST[ranking5]'),
- ('$row[id_user]','$_REQUEST[id_ciudad6]','$_REQUEST[ranking6]'),
- ('$row[id_user]','$_REQUEST[id_ciudad7]','$_REQUEST[ranking7]'),
- ('$row[id_user]','$_REQUEST[id_ciudad8]','$_REQUEST[ranking8]'),
- ('$row[id_user]','$_REQUEST[id_ciudad9]','$_REQUEST[ranking9]'),
- ('$row[id_user]','$_REQUEST[id_ciudad10]','$_REQUEST[ranking10]'),
- ('$row[id_user]','$_REQUEST[id_ciudad11]','$_REQUEST[ranking11]'),
- ('$row[id_user]','$_REQUEST[id_ciudad12]','$_REQUEST[ranking12]'),
- ('$row[id_user]','$_REQUEST[id_ciudad13]','$_REQUEST[ranking13]'),
- ('$row[id_user]','$_REQUEST[id_ciudad14]','$_REQUEST[ranking14]'),
- ('$row[id_user]','$_REQUEST[id_ciudad15]','$_REQUEST[ranking15]')");
+ ('$row[id_user]','$_REQUEST[id_ciudad5]','$_REQUEST[ranking5]')");
     }   
  ?>
 

@@ -11,17 +11,7 @@
 		unset($_SESSION['correo']);
 		header("location: iniciosesion.php");
 	}
-	require 'database.php';
-	$where = "";
-   
-	 if(!empty($_POST)){
-		 $nombre= $_POST['nombre'];
-   
-		 if(!empty($nombre)){
-			$where= "WHERE nombre ='$nombre'";
-	
-		 }
-	 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,7 +33,7 @@
 	<body>
 
 		<!-- Header -->
-			<header id="header">
+        <header id="header">
 				<h1><a href="indexcliente.php">Ticket Express</a></h1>
 				<nav id="nav">
 					<ul>
@@ -61,39 +51,19 @@
 			</header>
 
 		<!-- Main -->
-			<section id="two" class="wrapper style2 special">
+			<section id="main" class="wrapper">
 				<div class="container">
+
 					<header class="major">
-						<h3>Perfil</h3>
+						<h2>Sobre Ticket Express</h2>
+						<p>Viaja a tus lugares favoritos.</p>
 					</header>
-					<section class="profiles">
-						<div class="row">
-							<section class="3u 4u(small) profile">
-								<img src="images/profile_placeholder.gif" alt="" />
-								<?php
-        							$query = $mysqli->query("SELECT * FROM clientes ORDER BY id DESC LIMIT 10");
-        							if($query->num_rows > 0){ 
-            						$row = $query->fetch_assoc()
-								?>
-								<h5>Nombre</h5>
-								<?php echo $row['nombre']; ?>
-								<?php }?>
-								<h5>Correo</h5>
-								<?php echo $_SESSION['correo']; ?>
-							</section>
-							<section class="3u 6u$(medium) 12u$(xsmall) profile">
-								<div class="12u$ 12u$(6)">
-									<input type="text" name="correo" placeholder="Ingrese Nueva Contraseña" required/>
-								</div>
-									</br>
-								<div class="12u$ 12u$(6)">
-									<input type="text" name="correo" placeholder="Confirmar Nueva Contraseña" required/>
-								</div>
-							</section>
-						</div>
-					</section>
+					<p>Ticket Express una compañía de venta de ticket aereos, es líder en el sector de la aviación privada. Somos propietarios, gestionamos y operamos la flota de aviones privados más amplia y diversa del mundo. </p>
+				
+					<p>Ticket Express empezó en 2019 como la primera empresa de venta de boletos aéreos nacional introdujimos el concepto de propiedad fraccionada para ofrecer a particulares y empresas todas las ventajas de la propiedad de un avión – y más – con un coste mucho menor. Hoy en día, Ticket Express ofrece una amplia gama de soluciones de aviación privada que satisfacen todo tipo de necesidades de viaje. Entre estas soluciones figuran, por ejemplo, vuelos expres, reserva de vuelos, vuelos extraordinarios, rutas específicas, servicio privado. </p>
 				</div>
 			</section>
+			
 
 		<!-- Footer -->
         <footer id="footer">
@@ -103,17 +73,17 @@
 							<section class="3u 6u(medium) 12u$(small)">
 								<h3>Somos Ticket Express</h3>
 								<ul class="unstyled">
-									<li><a href="#">Nuestro Telefono</a></li>
-									<li><a href="#">Trabaja en Ticket Express</a></li>
-									<li><a href="#">Sobre Ticket Express</a></li>
+									<li><a href="nuestrotelefonocliente.php">Nuestro Telefono</a></li>
+									<li><a href="trabajocliente.php">Trabaja en Ticket Express</a></li>
+									<li><a href="sobrecliente.php">Sobre Ticket Express</a></li>
 								</ul>
 							</section>
 							<section class="3u 6u$(medium) 12u$(small)">
 								<h3>Confianza en tus Compras</h3>
 								<ul class="unstyled">
-									<li><a href="#">Terminos y Condiciones</a></li>
-									<li><a href="#">Politica de Privacidad</a></li>
-									<li><a href="#">Conoce las Formas de Pago</a></li>
+									<li><a href="terminoscondicionescliente.php">Terminos y Condiciones</a></li>
+									<li><a href="politicacliente.php">Politica de Privacidad</a></li>
+									<li><a href="formaspagocliente.php">Conoce las Formas de Pago</a></li>
 								</ul>
 							</section>
 							<div class="4u$ 12u$(medium)">
@@ -138,7 +108,8 @@
 						</div>
 					</div>
 				</div>
-	</footer>
+			</footer>
+	
 
 	</body>
 </html>

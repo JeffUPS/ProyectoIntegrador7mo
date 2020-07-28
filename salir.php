@@ -5,6 +5,5 @@
 
   session_destroy();
 
-  header('Location: /ProyectoIntegrador7mo');
+  header('Location: /diosayudame');
 ?>
-

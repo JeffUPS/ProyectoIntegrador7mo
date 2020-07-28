@@ -11,17 +11,7 @@
 		unset($_SESSION['correo']);
 		header("location: iniciosesion.php");
 	}
-	require 'database.php';
-	$where = "";
-   
-	 if(!empty($_POST)){
-		 $nombre= $_POST['nombre'];
-   
-		 if(!empty($nombre)){
-			$where= "WHERE nombre ='$nombre'";
-	
-		 }
-	 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,7 +33,7 @@
 	<body>
 
 		<!-- Header -->
-			<header id="header">
+        <header id="header">
 				<h1><a href="indexcliente.php">Ticket Express</a></h1>
 				<nav id="nav">
 					<ul>
@@ -61,39 +51,37 @@
 			</header>
 
 		<!-- Main -->
-			<section id="two" class="wrapper style2 special">
+            <section id="main" class="wrapper style2 special">
 				<div class="container">
 					<header class="major">
-						<h3>Perfil</h3>
+                        <h2>Nuestros Teléfonos</h2>
+						<p>Contáctanos a los teléfonos.</p>
 					</header>
-					<section class="profiles">
-						<div class="row">
-							<section class="3u 4u(small) profile">
-								<img src="images/profile_placeholder.gif" alt="" />
-								<?php
-        							$query = $mysqli->query("SELECT * FROM clientes ORDER BY id DESC LIMIT 10");
-        							if($query->num_rows > 0){ 
-            						$row = $query->fetch_assoc()
-								?>
-								<h5>Nombre</h5>
-								<?php echo $row['nombre']; ?>
-								<?php }?>
-								<h5>Correo</h5>
-								<?php echo $_SESSION['correo']; ?>
-							</section>
-							<section class="3u 6u$(medium) 12u$(xsmall) profile">
-								<div class="12u$ 12u$(6)">
-									<input type="text" name="correo" placeholder="Ingrese Nueva Contraseña" required/>
-								</div>
-									</br>
-								<div class="12u$ 12u$(6)">
-									<input type="text" name="correo" placeholder="Confirmar Nueva Contraseña" required/>
-								</div>
-							</section>
+				</div>
+				<div class="container 50%">
+					
+						<div class="row uniform">
+							<div class="12u$">  
+                                <h4>Arnaldo Ortiz</h4>
+                                <img src="images/logotlf.png" width="20" heigth="20">
+                                0984818458
+							</div>
+							<div class="12u$">
+                                <h4>Wilian Tapia</h4>
+                                <img src="images/logotlf.png" width="20" heigth="20">
+                                0958855124
+							</div>
+                            <div class="12u$">
+                                <h4>Jefferson Yanqui</h4>
+                                <img src="images/logotlf.png" width="20" heigth="20">
+                                0987687516
+							</div>
+							
 						</div>
-					</section>
+					
 				</div>
 			</section>
+			
 
 		<!-- Footer -->
         <footer id="footer">
@@ -103,17 +91,17 @@
 							<section class="3u 6u(medium) 12u$(small)">
 								<h3>Somos Ticket Express</h3>
 								<ul class="unstyled">
-									<li><a href="#">Nuestro Telefono</a></li>
-									<li><a href="#">Trabaja en Ticket Express</a></li>
-									<li><a href="#">Sobre Ticket Express</a></li>
+									<li><a href="nuestrotelefonocliente.php">Nuestro Telefono</a></li>
+									<li><a href="trabajocliente.php">Trabaja en Ticket Express</a></li>
+									<li><a href="sobrecliente.php">Sobre Ticket Express</a></li>
 								</ul>
 							</section>
 							<section class="3u 6u$(medium) 12u$(small)">
 								<h3>Confianza en tus Compras</h3>
 								<ul class="unstyled">
-									<li><a href="#">Terminos y Condiciones</a></li>
-									<li><a href="#">Politica de Privacidad</a></li>
-									<li><a href="#">Conoce las Formas de Pago</a></li>
+									<li><a href="terminoscondicionescliente.php">Terminos y Condiciones</a></li>
+									<li><a href="politicacliente.php">Politica de Privacidad</a></li>
+									<li><a href="formaspagocliente.php">Conoce las Formas de Pago</a></li>
 								</ul>
 							</section>
 							<div class="4u$ 12u$(medium)">
@@ -138,7 +126,7 @@
 						</div>
 					</div>
 				</div>
-	</footer>
+			</footer>
 
 	</body>
 </html>
