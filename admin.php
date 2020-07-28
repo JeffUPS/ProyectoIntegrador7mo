@@ -1,3 +1,18 @@
+<?php 
+	session_start(); 
+
+	if (!isset($_SESSION['correo'])) {
+		$_SESSION['msg'] = "You must log in first";
+		header('location: iniciosesion.php');
+	}
+
+	if (isset($_GET['logout'])) {
+		session_destroy();
+		unset($_SESSION['correo']);
+		header("location: iniciosesion.php");
+	}
+
+?>
 <?php
  require 'database.php';
   $where = "";
@@ -38,6 +53,9 @@
 				<h1><a href="admin.php">Ticket Express</a></h1>
 				<nav id="nav">
 					<ul>
+						<li><?php  if (isset($_SESSION['correo'])) : ?>
+						<a href="profieladmin.php"><?php echo $_SESSION['correo']; ?></a>
+						<?php endif ?></li>	
 						<li><a href="admin.php">Inicio</a></li>
 						<li><a href="registrovuelo.php">Registrar Vuelo</a></li>
 						<li><a href="verclientes.php">Ver Clientes</a></li>

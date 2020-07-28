@@ -113,13 +113,13 @@
 										<h3>Fecha Ida:</h3>
 									</div>
 									<div class="6u(small)">
-										<input type="date" name="fecha_salida" value="2020-07-22" min="2020-05-01" max="2021-12-31">
+										<input type="date" name="fecha_salida" value="2020-07-22" >
 									</div>
 									<div class="6u(small)">
 										<h3>Fecha Vuelta:</h3>
 									</div>
 									<div class="6u(small)">
-										<input type="date" name="fecha_llegada"  value="2020-07-22" min="2020-05-01" max="2021-12-31">
+										<input type="date" name="fecha_llegada"  value="2020-07-22">
 									</div>
 									<div class="6u(small)">
 										<ul class="actions">
