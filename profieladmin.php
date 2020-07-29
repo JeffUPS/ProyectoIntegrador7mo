@@ -149,10 +149,13 @@
 							<div class="4u$ 12u$(medium)">
 							<ul class="icons">
 								<li>
-									<a class="icon rounded fa-facebook"><span class="label">Facebook</span></a>
+									<a href="https://www.facebook.com/Ticket-Express-100616961753420/" class="icon rounded fa-facebook"><span class="label">Facebook</span></a>
 								</li>
 								<li>
 									<a class="icon rounded fa-twitter"><span class="label">Twitter</span></a>
+								</li>
+								<li>
+									<a href="https://github.com/JeffUPS/ProyectoIntegrador7mo" class="icon rounded fa-github"><span class="label">Github</span></a>
 								</li>
 							</ul>
 						</div>

@@ -56,17 +56,17 @@
 					<section class="profiles">
 						<div class="row">
 							<section class="3u 6u(medium) 12u$(xsmall) profile">
-								<img src="images/profile_placeholder.gif" alt="" />
+								<img src="" alt="" />
 								<h4>Arnaldo Ortiz</h4>
 								<p>Estudiante - Tester</p>
 							</section>
 							<section class="3u 6u$(medium) 12u$(xsmall) profile">
-								<img src="images/profile_placeholder.gif" alt="" />
+								<img src="images/wilian.jpeg" width="95" height="100" />
 								<h4>Wilian Tapia</h4>
 								<p>Estudiante - Desarrollador</p>
 							</section>
 							<section class="3u 6u(medium) 12u$(xsmall) profile">
-								<img src="images/profile_placeholder.gif" alt="" />
+								<img src="images/jefferson.jpg" width="100" height="100" alt="" />
 								<h4>Jefferson Yanqui</h4>
 								<p>Estudiante - Desarrollador</p>
 							</section>
@@ -102,10 +102,13 @@
 							<div class="4u$ 12u$(medium)">
 							<ul class="icons">
 								<li>
-									<a class="icon rounded fa-facebook"><span class="label">Facebook</span></a>
+									<a href="https://www.facebook.com/Ticket-Express-100616961753420/" class="icon rounded fa-facebook"><span class="label">Facebook</span></a>
 								</li>
 								<li>
 									<a class="icon rounded fa-twitter"><span class="label">Twitter</span></a>
+								</li>
+								<li>
+									<a href="https://github.com/JeffUPS/ProyectoIntegrador7mo" class="icon rounded fa-github"><span class="label">Github</span></a>
 								</li>
 							</ul>
 						</div>

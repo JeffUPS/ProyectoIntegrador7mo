@@ -137,7 +137,27 @@ if (isset($_GET['logout'])) {
             <?php } ?>
         </tr>
     </tfoot>
-    </table>
+	</table>
+	
+	<h2>Datos del Pasajero</h2>
+	<form method="post" action="guardarpasajeron.php">
+		<div class="row uniform">
+			<div class="4u 12u$">
+				<input type="text" name="nombre_pasajero" placeholder="Ingrese Nombre del Pasajero" required/>
+			</div>
+			<div class="4u 12u$">
+				<input type="text" name="num_pasaporte" placeholder="Ingrese su Numero de Pasaporte" required/>
+			</div>
+			<div class="4u 12u$">
+				<input type="date" name="fecha_nacimiento" required/>
+			</div>
+			<div class="12u$">
+				<ul class="actions">
+					<li><button type="submit" class="button fit" name="login_user">Registrar Pasajero</button></li>
+				</ul>
+			</div>
+		</div>
+	</form>
     <div >
         <a href="vueloscliente.php" class="button"><i class="glyphicon glyphicon-menu-left"></i>Continuar Comprando</a>
         <a href="cartAction.php?action=placeOrder" class="button">Realizar Compra</a>
@@ -156,26 +176,29 @@ if (isset($_GET['logout'])) {
 							<section class="3u 6u(medium) 12u$(small)">
 								<h3>Somos Ticket Express</h3>
 								<ul class="unstyled">
-									<li><a href="#">Nuestro Telefono</a></li>
-									<li><a href="#">Trabaja en Ticket Express</a></li>
-									<li><a href="#">Sobre Ticket Express</a></li>
+									<li><a href="nuestrotelefonocliente.php">Nuestro Telefono</a></li>
+									<li><a href="trabajocliente.php">Trabaja en Ticket Express</a></li>
+									<li><a href="sobrecliente.php">Sobre Ticket Express</a></li>
 								</ul>
 							</section>
 							<section class="3u 6u$(medium) 12u$(small)">
 								<h3>Confianza en tus Compras</h3>
 								<ul class="unstyled">
-									<li><a href="#">Terminos y Condiciones</a></li>
-									<li><a href="#">Politica de Privacidad</a></li>
-									<li><a href="#">Conoce las Formas de Pago</a></li>
+									<li><a href="terminoscondicionescliente.php">Terminos y Condiciones</a></li>
+									<li><a href="politicacliente.php">Politica de Privacidad</a></li>
+									<li><a href="formaspagocliente.php">Conoce las Formas de Pago</a></li>
 								</ul>
 							</section>
 							<div class="4u$ 12u$(medium)">
 							<ul class="icons">
 								<li>
-									<a class="icon rounded fa-facebook"><span class="label">Facebook</span></a>
+									<a href="https://www.facebook.com/Ticket-Express-100616961753420/" class="icon rounded fa-facebook"><span class="label">Facebook</span></a>
 								</li>
 								<li>
 									<a class="icon rounded fa-twitter"><span class="label">Twitter</span></a>
+								</li>
+								<li>
+									<a href="https://github.com/JeffUPS/ProyectoIntegrador7mo" class="icon rounded fa-github"><span class="label">Github</span></a>
 								</li>
 							</ul>
 						</div>
@@ -191,7 +214,7 @@ if (isset($_GET['logout'])) {
 						</div>
 					</div>
 				</div>
-	</footer>
+			</footer>
 
 	</body>
 </html>

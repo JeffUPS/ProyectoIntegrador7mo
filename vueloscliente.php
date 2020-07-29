@@ -79,12 +79,11 @@ $resultado1 = $mysqli->query($ql);
 							<hr>
 					<div class="12u$">
 						<!-- Consulta Busqueda de Vuelo -->
-						<?php while($row = $resultado1->fetch_array(MYSQLI_ASSOC)) { ?>
-							<!-- Consulta Compra de Vuelo -->
-							<?php $query = $mysqli->query("SELECT * FROM vuelo ORDER BY id DESC LIMIT 10");
-        						if($query->num_rows > 0){ 
-            						while($row = $query->fetch_assoc()){
-							?>
+						<!-- Consulta Compra de Vuelo -->
+						<?php $query = $mysqli->query("SELECT * FROM vuelo");
+            						while($row = $query->fetch_assoc()){?>
+									<?php while($row = $resultado1->fetch_array(MYSQLI_ASSOC)) { ?>
+							
 					<section class="links">
 						<div class="row">
 							<section class="3u 6u(medium) 12u$(small)">
@@ -118,11 +117,9 @@ $resultado1 = $mysqli->query($ql);
 							</section>
 						</div>
 					</section>
-					
-								<?php } }else{ ?>
-        								<p>No Exitsten Vuelo</p>
-									<?php } ?>
-						<?php } ?>
+										<?php } ?>
+								<?php } ?>
+						
 					</div>
 			</div>
 		</section>
@@ -135,26 +132,29 @@ $resultado1 = $mysqli->query($ql);
 							<section class="3u 6u(medium) 12u$(small)">
 								<h3>Somos Ticket Express</h3>
 								<ul class="unstyled">
-									<li><a href="#">Nuestro Telefono</a></li>
-									<li><a href="#">Trabaja en Ticket Express</a></li>
-									<li><a href="#">Sobre Ticket Express</a></li>
+									<li><a href="nuestrotelefonocliente.php">Nuestro Telefono</a></li>
+									<li><a href="trabajocliente.php">Trabaja en Ticket Express</a></li>
+									<li><a href="sobrecliente.php">Sobre Ticket Express</a></li>
 								</ul>
 							</section>
 							<section class="3u 6u$(medium) 12u$(small)">
 								<h3>Confianza en tus Compras</h3>
 								<ul class="unstyled">
-									<li><a href="#">Terminos y Condiciones</a></li>
-									<li><a href="#">Politica de Privacidad</a></li>
-									<li><a href="#">Conoce las Formas de Pago</a></li>
+									<li><a href="terminoscondicionescliente.php">Terminos y Condiciones</a></li>
+									<li><a href="politicacliente.php">Politica de Privacidad</a></li>
+									<li><a href="formaspagocliente.php">Conoce las Formas de Pago</a></li>
 								</ul>
 							</section>
 							<div class="4u$ 12u$(medium)">
 							<ul class="icons">
 								<li>
-									<a class="icon rounded fa-facebook"><span class="label">Facebook</span></a>
+									<a href="https://www.facebook.com/Ticket-Express-100616961753420/" class="icon rounded fa-facebook"><span class="label">Facebook</span></a>
 								</li>
 								<li>
 									<a class="icon rounded fa-twitter"><span class="label">Twitter</span></a>
+								</li>
+								<li>
+									<a href="https://github.com/JeffUPS/ProyectoIntegrador7mo" class="icon rounded fa-github"><span class="label">Github</span></a>
 								</li>
 							</ul>
 						</div>
@@ -170,7 +170,7 @@ $resultado1 = $mysqli->query($ql);
 						</div>
 					</div>
 				</div>
-	</footer>
+			</footer>
 
 	</body>
 </html>

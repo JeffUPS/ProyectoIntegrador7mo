@@ -102,16 +102,27 @@ require 'database.php';
 					</header>
                     <p>Su compra se ha realizado correctamente.. ID de su compra es #<?php echo $_GET['id']; ?></p>
 					<?php
-        					$query = $mysqli->query("Select DISTINCT nombre,correo,ciudad_origen,ciudad_destino,fecha_salida,fecha_llegada,hora_salida,hora_llegada,num_vuelo,aereolinea from vuelo,compras,clientes,boleto where clientes.id=compras.customer_id and compras.id=boleto.order_id and boleto.product_id=vuelo.id");
+        					$query = $mysqli->query("Select DISTINCT nombre,correo,nombre_pasajero,num_pasaporte,fecha_nacimiento,ciudad_origen,ciudad_destino,fecha_salida,fecha_llegada,hora_salida,hora_llegada,num_vuelo,aereolinea from vuelo,compras,clientes,pasajero,boleto where clientes.id=compras.customer_id and compras.id=boleto.order_id and boleto.product_id=vuelo.id");
         					if($query->num_rows > 0){ 
             				$row = $query->fetch_assoc()
         					?>
 							<h2>Datos clientes</h2>
-							NOMBRE DEL clientes:
+							NOMBRE DEL CLIENTE:
 							<?php echo $row['nombre']; ?>
 							</br></br>
-							NUMERO DE PASAPORTE:
+							CORREO:
 							<?php echo $row['correo']; ?>
+							</br>
+							-------------------------------------------------------------------------------------------------------------------------------
+							<h2>Datos clientes</h2>
+							NOMBRE DEL PASAJERO:
+							<?php echo $row['nombre_pasajero']; ?>
+							</br></br>
+							NUMERO DE PASAPORTE:
+							<?php echo $row['num_pasaporte']; ?>
+							</br></br>
+							FECHA DE NACIMIENTO:
+							<?php echo $row['fecha_nacimiento']; ?>
 							</br>
 							-------------------------------------------------------------------------------------------------------------------------------
 							<h2>Datos Vuelo</h2>
@@ -164,10 +175,13 @@ require 'database.php';
 							<div class="4u$ 12u$(medium)">
 							<ul class="icons">
 								<li>
-									<a class="icon rounded fa-facebook"><span class="label">Facebook</span></a>
+									<a href="https://www.facebook.com/Ticket-Express-100616961753420/" class="icon rounded fa-facebook"><span class="label">Facebook</span></a>
 								</li>
 								<li>
 									<a class="icon rounded fa-twitter"><span class="label">Twitter</span></a>
+								</li>
+								<li>
+									<a href="https://github.com/JeffUPS/ProyectoIntegrador7mo" class="icon rounded fa-github"><span class="label">Github</span></a>
 								</li>
 							</ul>
 						</div>
