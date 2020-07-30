@@ -24,24 +24,6 @@
 	 }
 ?>
 
-<?php
-    if(isset($_SESSION['correo'])) { // comprobamos que la sesión esté iniciada
-        if(isset($_POST['enviar'])) {
-            if($_POST['password'] != $_POST['usuario_clave_conf']) {
-                echo "Las contraseñas ingresadas no coinciden. <a href='profieladmin.php;'>Reintentar</a>";
-            }else {
-                $usuario_nombre = $_SESSION['correo'];
-                $usuario_clave = mysqli_real_escape_string($_POST["password"]);
-                $usuario_clave = md5($usuario_clave); // encriptamos la nueva contraseña con md5
-                $sql = mysqli_query("UPDATE clientes SET password='".$password."' WHERE correo ='".$correo."'");
-                if($sql) {
-                    echo "Contraseña cambiada correctamente.";
-                }else {
-                    echo "Error: No se pudo cambiar la contraseña. <a href='profieladmin.php'>Reintentar</a>";
-                }
-            }
-        }else {
-?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -62,21 +44,23 @@
 	<body>
 
 		<!-- Header -->
-			<header id="header">
-				<h1><a href="indexcliente.php">Ticket Express</a></h1>
+		<header id="header">
+				<h1><a href="admin.php">Ticket Express</a></h1>
 				<nav id="nav">
 					<ul>
-						
 						<li><?php  if (isset($_SESSION['correo'])) : ?>
 						<a href="profieladmin.php"><?php echo $_SESSION['correo']; ?></a>
 						<?php endif ?></li>	
 						<li><a href="admin.php">Inicio</a></li>
 						<li><a href="registrovuelo.php">Registrar Vuelo</a></li>
 						<li><a href="verclientes.php">Ver Clientes</a></li>
+						<li><a href="calificaciones.php">Ver Calificaciones</a></li>
 						<li><a href="salir.php" class="button special">Salir</a></li>
+						
 					</ul>
 				</nav>
 			</header>
+
 
 		<!-- Main -->
 			<section id="two" class="wrapper style2 special">
@@ -89,9 +73,10 @@
 							<section class="3u 4u(small) profile">
 								<img src="images/profile_placeholder.gif" alt="" />
 								<?php
-        							$query = $mysqli->query("SELECT * FROM clientes ORDER BY id DESC LIMIT 10");
-        							if($query->num_rows > 0){ 
-            						$row = $query->fetch_assoc()
+        							$sql= "SELECT * FROM clientes WHERE correo='$_SESSION[correo]'";
+										$resultado = $mysqli->query($sql);
+										 while($row = $resultado->fetch_array(
+										   MYSQLI_ASSOC))  { 
 								?>
 								<h5>Nombre</h5>
 								<?php echo $row['nombre']; ?>
@@ -99,31 +84,11 @@
 								<h5>Correo</h5>
 								<?php echo $_SESSION['correo']; ?>
 							</section>
-							<section class="3u 6u$(medium) 12u$(xsmall) profile">
-								<form action="<?=$_SERVER['PHP_SELF']?>" method="post">
-									<div class="12u$ 12u$(6)">
-										<input type="password" name="password" placeholder="Ingrese Nueva Contraseña" required/>
-									</div>
-									</br>
-									<div class="12u$ 12u$(6)">
-										<input type="password" name="usuario_clave_conf" placeholder="Confirmar Nueva Contraseña" required/>
-									</div>
-									</br>
-									<div class="12u$ 12u$(6)">
-										<input type="submit" name="enviar" value="Enviar" />
-									</div>
-								</form>
-							</section>
+							
 						</div>
 					</section>
 				</div>
 			</section>
-			<?php
-        }
-    }else {
-        echo "Acceso denegado.";
-    }
-?> 
 
 		<!-- Footer -->
         <footer id="footer">

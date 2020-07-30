@@ -5,19 +5,14 @@
 		$_SESSION['msg'] = "You must log in first";
 		header('location: iniciosesion.php');
 	}
-
-	if (isset($_GET['logout'])) {
-		session_destroy();
-		unset($_SESSION['correo']);
-		header("location: iniciosesion.php");
-	}
-
+	echo isset($_GET['id']);
 ?>
 <?php
  require 'database.php';
- $sql="SELECT DISTINCTROW ciudad_origen,ciudad_destino FROM vuelo";
+ $sql="SELECT ciudad_origen,ciudad_destino FROM ciudad,ciudadesti WHERE ciudad_origen=ciudad_destino";
  $resultado = $mysqli->query($sql); 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -40,7 +35,7 @@
 	</head>
 	<body class="landing">
 		<!-- Header -->
-			<header id="header">
+		<header id="header">
 				<h1><a href="indexcliente.php">Ticket Express</a></h1>
 				<nav id="nav">
 					<ul>
@@ -61,7 +56,6 @@
 				<h2>Bienvenido a Ticket Express</h2>
 				<p>Viaja a tus lugares favoritos.</p>
 			</section>
-		
 
 		<!-- One -->
 			<section id="two" class="wrapper style2 special">
@@ -71,17 +65,15 @@
 					</header>
 
 					
-						<div class="container 150%">
+					<div class="container 150%">
 							<div class="row">
 								<div class="4u(3)">
-									<input type="radio" id="priority-normal" name="ranking0" checked>
-									<label for="priority-normal">Ida y Vuelta</label>
+									<input type="radio" id="isDiscounted" name="isDiscounted" value= 1 th:field="*{discounted}" checked>
+									<label for="isDiscounted">Ida y Vuelta</label>
 								</div>
 							<div class="4u(3)">
-								<input type="radio" id="priority-normal" name="ranking0">
-								<label for="priority-low">Solo Ida</label>
-							</div>
-
+								<input type="radio" id="isNotDiscounted" name="isDiscounted" value= 0 th:field="*{discounted}">
+								<label for="isNotDiscounted">Solo Ida</label>
 							</div>
 							<form action="vueloscliente.php" method="POST">
 								<div class="row uniform">
@@ -113,26 +105,27 @@
 										<h3>Fecha Ida:</h3>
 									</div>
 									<div class="6u(small)">
-										<input type="date" name="fecha_salida" value="2020-07-22" >
+										<input type="date" name="fecha_salida" value="2020-07-22">
 									</div>
 									<div class="6u(small)">
 										<h3>Fecha Vuelta:</h3>
 									</div>
 									<div class="6u(small)">
-										<input type="date" name="fecha_llegada"  value="2020-07-22">
+										<input type="date" name="fecha_llegada" value="2020-07-22" id="discountPercentage" th:field="*{discountPercentage}" enable>
 									</div>
 									<div class="6u(small)">
 										<ul class="actions">
-											<li><input value="Buscar" id="enviar" name="enviar" class="special big" type="submit"></li>
+											<input value="Buscar" id="enviar" name="enviar" class="special medium" type="submit">
 										</ul>
 									</div>
 								</div>
 						</form>
+						
 						</div>
 				
 				</div>
 			</section>
-
+			
 		<!-- Two -->
 		<section id="one" class="wrapper style1 special">
 			<div class="container">
@@ -143,7 +136,7 @@
 					<div class="4u 12u$(medium)">
 						<section class="box">
 							<img src="images/img3.png" width="277" height="277">
-							<h3>Recomendaciones</h3>
+							<h3>Busca</h3>
 							<p>Elige el destino y la fecha de tu próximo vuelo. Puedes añadir requisitos adicionales para tu búsqueda como: clase, número de viajeros adultos, niños, etc.</p>
 						</section>
 					</div>
@@ -165,13 +158,14 @@
 				</div>
 			</div>
 		</section>
-
+		
 		<!-- Two -->
 		<section id="two" class="wrapper style2 special">
 				<div class="container">
 					<form action="guardarvaloracion.php" method="POST">								
 						<header class="major">
-							<h2>Recomendaciones</h2>
+							<h2>Calificaciones</h2>
+							<p>Para mejorar destino ayudamos calificando de 1 a 5 (1 como bajo y 5 como alto)</p>
 						</header>
 						
 							<section class="profiles">
@@ -179,330 +173,332 @@
 									<section class="4u 6u(medium) 12u$(xsmall)">
 									<div class="row uniform">
 									<div class="12u$(3)">
-									<h3>AZUAY</h3>
+									<h3>CATAMAYO</h3>
 										<input type="hidden" name="id_ciudad0" value="1">
-										<input type="radio" id="priority-rk0" name="ranking0" >
-										<label for="priority-rk0">1</label>
+										<input type="radio" id="priority-rk0" name="ranking0">1
+										<label for="priority-rk0"></label>
 									
-										<input type="radio" id="priority-rk1" name="ranking0">
-										<label for="priority-rk1">2</label>
+										<input type="radio" id="priority-rk1" name="ranking0">2
+										<label for="priority-rk1"></label>
 								
-										<input type="radio" id="priority-rk3" name="ranking0">
-										<label for="priority-rk3">3</label>
+										<input type="radio" id="priority-rk3" name="ranking0">3
+										<label for="priority-rk3"></label>
 									
-										<input type="radio" id="priority-rk4" name="ranking0">
-										<label for="priority-rk4">4</label>
+										<input type="radio" id="priority-rk4" name="ranking0">4
+										<label for="priority-rk4"></label>
 			
-										<input type="radio" id="priority-rk5" name="ranking0">
-										<label for="priority-rk5">5</label>
+										<input type="radio" id="priority-rk5" name="ranking0">5
+										<label for="priority-rk5"></label>
 									</div>
 								</div>
 								<div class="row uniform">
 									<div class="12u$(3)">
-									<h3>COTOPAXI</h3>
+									<h3>CUENCA</h3>
 										<input type="hidden" name="id_ciudad1" value="2">
-										<input type="radio" id="priority-rk01" name="ranking1" >
-										<label for="priority-rk01">1</label>
+										<input type="radio" id="priority-rk01" name="ranking1" >1
+										<label for="priority-rk01"></label>
 									
-										<input type="radio" id="priority-rk11" name="ranking1">
-										<label for="priority-rk11">2</label>
+										<input type="radio" id="priority-rk11" name="ranking1">2
+										<label for="priority-rk11"></label>
 								
-										<input type="radio" id="priority-rk31" name="ranking1">
-										<label for="priority-rk31">3</label>
+										<input type="radio" id="priority-rk31" name="ranking1">3
+										<label for="priority-rk31"></label>
 									
-										<input type="radio" id="priority-rk41" name="ranking1">
-										<label for="priority-rk41">4</label>
+										<input type="radio" id="priority-rk41" name="ranking1">4
+										<label for="priority-rk41"></label>
 			
-										<input type="radio" id="priority-rk51" name="ranking1">
-										<label for="priority-rk51">5</label>
+										<input type="radio" id="priority-rk51" name="ranking1">5
+										<label for="priority-rk51"></label>
 									</div>
 								</div>
 								<div class="row uniform">
 									<div class="12u$(3)">
-									<h3>EL ORO</h3>
+									<h3>CUMBARATZA</h3>
 										<input type="hidden" name="id_ciudad2" value="3">
-										<input type="radio" id="priority-rk02" name="ranking2" >
-										<label for="priority-rk02">1</label>
+										<input type="radio" id="priority-rk02" name="ranking2" >1
+										<label for="priority-rk02"></label>
 									
-										<input type="radio" id="priority-rk12" name="ranking2">
-										<label for="priority-rk12">2</label>
+										<input type="radio" id="priority-rk12" name="ranking2">2
+										<label for="priority-rk12"></label>
 								
-										<input type="radio" id="priority-rk32" name="ranking2">
-										<label for="priority-rk32">3</label>
+										<input type="radio" id="priority-rk32" name="ranking2">3
+										<label for="priority-rk32"></label>
 									
-										<input type="radio" id="priority-rk42" name="ranking2">
-										<label for="priority-rk42">4</label>
+										<input type="radio" id="priority-rk42" name="ranking2">4
+										<label for="priority-rk42"></label>
 			
-										<input type="radio" id="priority-rk52" name="ranking2">
-										<label for="priority-rk52">5</label>
+										<input type="radio" id="priority-rk52" name="ranking2">5
+										<label for="priority-rk52"></label>
 									</div>
 								</div>
 								<div class="row uniform">
 									<div class="12u$(3)">
 									<h3>ESMERALDAS</h3>
 										<input type="hidden" name="id_ciudad3" value="4">
-										<input type="radio" id="priority-rk03" name="ranking3" >
-										<label for="priority-rk03">1</label>
+										<input type="radio" id="priority-rk03" name="ranking3" >1
+										<label for="priority-rk03"></label>
 									
-										<input type="radio" id="priority-rk13" name="ranking3">
-										<label for="priority-rk13">2</label>
+										<input type="radio" id="priority-rk13" name="ranking3">2
+										<label for="priority-rk13"></label>
 								
-										<input type="radio" id="priority-rk33" name="ranking3">
-										<label for="priority-rk33">3</label>
+										<input type="radio" id="priority-rk33" name="ranking3">3
+										<label for="priority-rk33"></label>
 									
-										<input type="radio" id="priority-rk43" name="ranking3">
-										<label for="priority-rk43">4</label>
+										<input type="radio" id="priority-rk43" name="ranking3">4
+										<label for="priority-rk43"></label>
 			
-										<input type="radio" id="priority-rk53" name="ranking3">
-										<label for="priority-rk53">5</label>
+										<input type="radio" id="priority-rk53" name="ranking3">5
+										<label for="priority-rk53"></label>
 									</div>
 								</div>
 								<div class="row uniform">
 									<div class="12u$(3)">
-									<h3>GALÁPAGOS</h3>
+									<h3>GUAYAQUIL</h3>
 										<input type="hidden" name="id_ciudad4" value="5">
-										<input type="radio" id="priority-rk04" name="ranking4" >
-										<label for="priority-rk04">1</label>
+										<input type="radio" id="priority-rk04" name="ranking4" >1
+										<label for="priority-rk04"></label>
 									
-										<input type="radio" id="priority-rk14" name="ranking4">
-										<label for="priority-rk14">2</label>
+										<input type="radio" id="priority-rk14" name="ranking4">2
+										<label for="priority-rk14"></label>
 								
-										<input type="radio" id="priority-rk34" name="ranking4">
-										<label for="priority-rk34">3</label>
+										<input type="radio" id="priority-rk34" name="ranking4">3
+										<label for="priority-rk34"></label>
 									
-										<input type="radio" id="priority-rk44" name="ranking4">
-										<label for="priority-rk44">4</label>
+										<input type="radio" id="priority-rk44" name="ranking4">4
+										<label for="priority-rk44"></label>
 			
-										<input type="radio" id="priority-rk54" name="ranking4">
-										<label for="priority-rk54">5</label>
+										<input type="radio" id="priority-rk54" name="ranking4">5
+										<label for="priority-rk54"></label>
 									</div>
 								</div>
 									</section>
 									<section class="4u 6u$(medium) 12u$(xsmall)">
 									<div class="row uniform">
 									<div class="12u$(3)">
-									<h3>GUAYAS</h3>
+									<h3>JAIME ROLDOS</h3>
 										<input type="hidden" name="id_ciudad5" value="6">
-										<input type="radio" id="priority-rk05" name="ranking5" >
-										<label for="priority-rk05">1</label>
+										<input type="radio" id="priority-rk05" name="ranking5" >1
+										<label for="priority-rk05"></label>
 									
-										<input type="radio" id="priority-rk15" name="ranking5">
-										<label for="priority-rk15">2</label>
+										<input type="radio" id="priority-rk15" name="ranking5">2
+										<label for="priority-rk15"></label>
 								
-										<input type="radio" id="priority-rk35" name="ranking5">
-										<label for="priority-rk35">3</label>
+										<input type="radio" id="priority-rk35" name="ranking5">3
+										<label for="priority-rk35"></label>
 									
-										<input type="radio" id="priority-rk45" name="ranking5">
-										<label for="priority-rk45">4</label>
+										<input type="radio" id="priority-rk45" name="ranking5">4
+										<label for="priority-rk45"></label>
 			
-										<input type="radio" id="priority-rk55" name="ranking5">
-										<label for="priority-rk55">5</label>
+										<input type="radio" id="priority-rk55" name="ranking5">5
+										<label for="priority-rk55"></label>
 									</div>
 								</div>
 								<div class="row uniform">
 									<div class="12u$(3)">
-									<h3>LOJA</h3>
+									<h3>LATACUNGA</h3>
 										<input type="hidden" name="id_ciudad6" value="7">
-										<input type="radio" id="priority-rk06" name="ranking6" >
-										<label for="priority-rk06">1</label>
+										<input type="radio" id="priority-rk06" name="ranking6" >1
+										<label for="priority-rk06"></label>
 									
-										<input type="radio" id="priority-rk16" name="ranking6">
-										<label for="priority-rk16">2</label>
+										<input type="radio" id="priority-rk16" name="ranking6">2
+										<label for="priority-rk16"></label>
 								
-										<input type="radio" id="priority-rk36" name="ranking6">
-										<label for="priority-rk36">3</label>
+										<input type="radio" id="priority-rk36" name="ranking6">3
+										<label for="priority-rk36"></label>
 									
-										<input type="radio" id="priority-rk46" name="ranking6">
-										<label for="priority-rk46">4</label>
+										<input type="radio" id="priority-rk46" name="ranking6">4
+										<label for="priority-rk46"></label>
 			
-										<input type="radio" id="priority-rk56" name="ranking6">
-										<label for="priority-rk56">5</label>
+										<input type="radio" id="priority-rk56" name="ranking6">5
+										<label for="priority-rk56"></label>
 									</div>
 								</div>
 								<div class="row uniform">
 									<div class="12u$(3)">
 									<h3>MACAS</h3>
 										<input type="hidden" name="id_ciudad7" value="8">
-										<input type="radio" id="priority-rk07" name="ranking7" >
-										<label for="priority-rk07">1</label>
+										<input type="radio" id="priority-rk07" name="ranking7" >1
+										<label for="priority-rk07"></label>
 									
-										<input type="radio" id="priority-rk17" name="ranking7">
-										<label for="priority-rk17">2</label>
+										<input type="radio" id="priority-rk17" name="ranking7">2
+										<label for="priority-rk17"></label>
 								
-										<input type="radio" id="priority-rk37" name="ranking7">
-										<label for="priority-rk37">3</label>
+										<input type="radio" id="priority-rk37" name="ranking7">3
+										<label for="priority-rk37"></label>
 									
-										<input type="radio" id="priority-rk47" name="ranking7">
-										<label for="priority-rk47">4</label>
+										<input type="radio" id="priority-rk47" name="ranking7">4
+										<label for="priority-rk47"></label>
 			
-										<input type="radio" id="priority-rk57" name="ranking7">
-										<label for="priority-rk57">5</label>
+										<input type="radio" id="priority-rk57" name="ranking7">5
+										<label for="priority-rk57"></label>
 									</div>
 								</div>
 								<div class="row uniform">
 									<div class="12u$(3)">
-									<h3>MANABÍ</h3>
+									<h3>MANTA</h3>
 										<input type="hidden" name="id_ciudad8" value="9">
-										<input type="radio" id="priority-rk08" name="ranking8" >
-										<label for="priority-rk08">1</label>
+										<input type="radio" id="priority-rk08" name="ranking8" >1
+										<label for="priority-rk08"></label>
 									
-										<input type="radio" id="priority-rk18" name="ranking8">
-										<label for="priority-rk18">2</label>
+										<input type="radio" id="priority-rk18" name="ranking8">2
+										<label for="priority-rk18"></label>
 								
-										<input type="radio" id="priority-rk38" name="ranking8">
-										<label for="priority-rk38">3</label>
+										<input type="radio" id="priority-rk38" name="ranking8">3
+										<label for="priority-rk38"></label>
 									
-										<input type="radio" id="priority-rk48" name="ranking8">
-										<label for="priority-rk48">4</label>
+										<input type="radio" id="priority-rk48" name="ranking8">4
+										<label for="priority-rk48"></label>
 			
-										<input type="radio" id="priority-rk58" name="ranking8">
-										<label for="priority-rk58">5</label>
+										<input type="radio" id="priority-rk58" name="ranking8">5
+										<label for="priority-rk58"></label>
 									</div>
 								</div>
 								<div class="row uniform">
 									<div class="12u$(3)">
-									<h3>MORONA SANTIAGO</h3>
+									<h3>NUEVA LOJA</h3>
 										<input type="hidden" name="id_ciudad9" value="10">
-										<input type="radio" id="priority-rk09" name="ranking9" >
-										<label for="priority-rk09">1</label>
+										<input type="radio" id="priority-rk09" name="ranking9" >1
+										<label for="priority-rk09"></label>
 									
-										<input type="radio" id="priority-rk19" name="ranking9">
-										<label for="priority-rk19">2</label>
+										<input type="radio" id="priority-rk19" name="ranking9">2
+										<label for="priority-rk19"></label>
 								
-										<input type="radio" id="priority-rk39" name="ranking9">
-										<label for="priority-rk39">3</label>
+										<input type="radio" id="priority-rk39" name="ranking9">3
+										<label for="priority-rk39"></label>
 									
-										<input type="radio" id="priority-rk49" name="ranking9">
-										<label for="priority-rk49">4</label>
+										<input type="radio" id="priority-rk49" name="ranking9">4
+										<label for="priority-rk49"></label>
 			
-										<input type="radio" id="priority-rk59" name="ranking9">
-										<label for="priority-rk59">5</label>
+										<input type="radio" id="priority-rk59" name="ranking9">5
+										<label for="priority-rk59"></label>
 									</div>
 								</div>
 								<div class="row uniform">
 									<div class="12u$(3)">
-									<h3>ORELLANA</h3>
+									<h3>ISLA BALTRA</h3>
 										<input type="hidden" name="id_ciudad10" value="11">
-										<input type="radio" id="priority-rk010" name="ranking10" >
-										<label for="priority-rk010">1</label>
+										<input type="radio" id="priority-rk010" name="ranking10" >1
+										<label for="priority-rk010"></label>
 									
-										<input type="radio" id="priority-rk110" name="ranking10">
-										<label for="priority-rk110">2</label>
+										<input type="radio" id="priority-rk110" name="ranking10">2
+										<label for="priority-rk110"></label>
 								
-										<input type="radio" id="priority-rk310" name="ranking10">
-										<label for="priority-rk310">3</label>
+										<input type="radio" id="priority-rk310" name="ranking10">3
+										<label for="priority-rk310"></label>
 									
-										<input type="radio" id="priority-rk410" name="ranking10">
-										<label for="priority-rk410">4</label>
+										<input type="radio" id="priority-rk410" name="ranking10">4
+										<label for="priority-rk410"></label>
 			
-										<input type="radio" id="priority-rk510" name="ranking10">
-										<label for="priority-rk510">5</label>
+										<input type="radio" id="priority-rk510" name="ranking10">5
+										<label for="priority-rk510"></label>
 									</div>
 								</div>
 									</section>
 									<section class="4u 6u(medium) 12u$(xsmall)">
 								<div class="row uniform">
 									<div class="12u$(3)">
-									<h3>PASTAZA</h3>
+									<h3>ANDOAS</h3>
 										<input type="hidden" name="id_ciudad11" value="12">
-										<input type="radio" id="priority-rk011" name="ranking11" >
-										<label for="priority-rk011">1</label>
+										<input type="radio" id="priority-rk011" name="ranking11" >1
+										<label for="priority-rk011"></label>
 									
-										<input type="radio" id="priority-rk111" name="ranking11">
-										<label for="priority-rk111">2</label>
+										<input type="radio" id="priority-rk111" name="ranking11">2
+										<label for="priority-rk111"></label>
 								
-										<input type="radio" id="priority-rk311" name="ranking11">
-										<label for="priority-rk311">3</label>
+										<input type="radio" id="priority-rk311" name="ranking11">3
+										<label for="priority-rk311"></label>
 									
-										<input type="radio" id="priority-rk411" name="ranking11">
-										<label for="priority-rk411">4</label>
+										<input type="radio" id="priority-rk411" name="ranking11">4
+										<label for="priority-rk411"></label>
 			
-										<input type="radio" id="priority-rk511" name="ranking11">
-										<label for="priority-rk511">5</label>
+										<input type="radio" id="priority-rk511" name="ranking11">5
+										<label for="priority-rk511"></label>
 									</div>
 								</div>
 								<div class="row uniform">
 									<div class="12u$(3)">
-									<h3>PICHINCHA</h3>
+									<h3>QUTIO</h3>
 										<input type="hidden" name="id_ciudad12" value="13">
-										<input type="radio" id="priority-rk012" name="ranking12" >
-										<label for="priority-rk012">1</label>
+										<input type="radio" id="priority-rk012" name="ranking12" >1
+										<label for="priority-rk012"></label>
 									
-										<input type="radio" id="priority-rk112" name="ranking12">
-										<label for="priority-rk112">2</label>
+										<input type="radio" id="priority-rk112" name="ranking12">2
+										<label for="priority-rk112"></label>
 								
-										<input type="radio" id="priority-rk312" name="ranking12">
-										<label for="priority-rk312">3</label>
+										<input type="radio" id="priority-rk312" name="ranking12">3
+										<label for="priority-rk312"></label>
 									
-										<input type="radio" id="priority-rk412" name="ranking12">
-										<label for="priority-rk412">4</label>
+										<input type="radio" id="priority-rk412" name="ranking12">4
+										<label for="priority-rk412"></label>
 			
-										<input type="radio" id="priority-rk512" name="ranking12">
-										<label for="priority-rk512">5</label>
+										<input type="radio" id="priority-rk512" name="ranking12">5
+										<label for="priority-rk512"></label>
 									</div>
 								</div>
 								<div class="row uniform">
 									<div class="12u$(3)">
-									<h3>SANTA ELENA</h3>
+									<h3>SALINAS</h3>
 										<input type="hidden" name="id_ciudad13" value="14">
-										<input type="radio" id="priority-rk013" name="ranking13" >
-										<label for="priority-rk013">1</label>
+										<input type="radio" id="priority-rk013" name="ranking13" >1
+										<label for="priority-rk013"></label>
 									
-										<input type="radio" id="priority-rk113" name="ranking13">
-										<label for="priority-rk113">2</label>
+										<input type="radio" id="priority-rk113" name="ranking13">2
+										<label for="priority-rk113"></label>
 								
-										<input type="radio" id="priority-rk313" name="ranking13">
-										<label for="priority-rk313">3</label>
+										<input type="radio" id="priority-rk313" name="ranking13">3
+										<label for="priority-rk313"></label>
 									
-										<input type="radio" id="priority-rk413" name="ranking13">
-										<label for="priority-rk413">4</label>
+										<input type="radio" id="priority-rk413" name="ranking13">4
+										<label for="priority-rk413"></label>
 			
-										<input type="radio" id="priority-rk513" name="ranking13">
-										<label for="priority-rk513">5</label>
+										<input type="radio" id="priority-rk513" name="ranking13">5
+										<label for="priority-rk513"></label>
 									</div>
 								</div>
 								<div class="row uniform">
 									<div class="12u$(3)">
-									<h3>SUCUMBIOS</h3>
-										<input type="hidden" name="id_ciudad15" value="15">
-										<input type="radio" id="priority-rk015" name="ranking15" >
-										<label for="priority-rk015">1</label>
+									<h3>SANTA ROSA</h3>
+										<input type="hidden" name="id_ciudad14" value="15">
+										<input type="radio" id="priority-rk014" name="ranking14" >1
+										<label for="priority-rk014"></label>
 									
-										<input type="radio" id="priority-rk115" name="ranking15">
-										<label for="priority-rk115">2</label>
+										<input type="radio" id="priority-rk114" name="ranking14">2
+										<label for="priority-rk114"></label>
 								
-										<input type="radio" id="priority-rk315" name="ranking15">
-										<label for="priority-rk315">3</label>
+										<input type="radio" id="priority-rk314" name="ranking14">3
+										<label for="priority-rk314"></label>
 									
-										<input type="radio" id="priority-rk415" name="ranking15">
-										<label for="priority-rk415">4</label>
+										<input type="radio" id="priority-rk414" name="ranking14">4
+										<label for="priority-rk414"></label>
 			
-										<input type="radio" id="priority-rk515" name="ranking15">
-										<label for="priority-rk515">5</label>
+										<input type="radio" id="priority-rk514" name="ranking14">5
+										<label for="priority-rk514"></label>
 									</div>
 								</div>
 								<div class="row uniform">
 									<div class="12u$(3)">
-									<h3>ZAMORA CHINCHIPE</h3>
-										<input type="hidden" name="id_ciudad16" value="16">
-										<input type="radio" id="priority-rk016" name="ranking16" >
-										<label for="priority-rk016">1</label>
+									<h3>TAISHA</h3>
+										<input type="hidden" name="id_ciudad15" value="16">
+										<input type="radio" id="priority-rk015" name="ranking15" >1
+										<label for="priority-rk015"></label>
 									
-										<input type="radio" id="priority-rk116" name="ranking16">
-										<label for="priority-rk116">2</label>
+										<input type="radio" id="priority-rk115" name="ranking15">2
+										<label for="priority-rk115"></label>
 								
-										<input type="radio" id="priority-rk316" name="ranking16">
-										<label for="priority-rk316">3</label>
+										<input type="radio" id="priority-rk315" name="ranking15">3
+										<label for="priority-rk315"></label>
 									
-										<input type="radio" id="priority-rk416" name="ranking16">
-										<label for="priority-rk416">4</label>
+										<input type="radio" id="priority-rk415" name="ranking15">4
+										<label for="priority-rk415"></label>
 			
-										<input type="radio" id="priority-rk516" name="ranking16">
-										<label for="priority-rk516">5</label>
+										<input type="radio" id="priority-rk515" name="ranking15">5
+										<label for="priority-rk515"></label>
 									</div>
 								</div>
 									</section>
 							</div>
+							</br>
+
 						</section>
 						<footer>
 							<ul class="actions">
@@ -565,6 +561,6 @@
 				</div>
 			</footer>
 	
-	<script src="js/check.js"></script>
+			<script src="js/check.js"></script>
 	</body>
 </html>

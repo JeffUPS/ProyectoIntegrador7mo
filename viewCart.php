@@ -10,11 +10,6 @@ if (!isset($_SESSION['correo'])) {
 	header('location: iniciosesion.php');
 }
 
-if (isset($_GET['logout'])) {
-	session_destroy();
-	unset($_SESSION['correo']);
-	header("location: iniciosesion.php");
-}
 ?>
 
 

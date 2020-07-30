@@ -11,8 +11,9 @@ if($cart->total_items() <= 0){
     header("Location: vueloscliente.php");
 }
 
+
 // set customer ID in session
-$_SESSION['sessCustomerID'] = 2;
+$_SESSION['sessCustomerID']=;
 
 // get customer details by session customer ID
 $query = $mysqli->query("SELECT * FROM clientes WHERE id = ".$_SESSION['sessCustomerID']);
@@ -140,7 +141,7 @@ if (isset($_GET['logout'])) {
 	</table>
 	
 	<h2>Datos del Pasajero</h2>
-	<form method="post" action="guardarpasajeron.php">
+	<form method="post" action="guardarpasajero.php">
 		<div class="row uniform">
 			<div class="4u 12u$">
 				<input type="text" name="nombre_pasajero" placeholder="Ingrese Nombre del Pasajero" required/>

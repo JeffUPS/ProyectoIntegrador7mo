@@ -84,7 +84,7 @@
                 <?php while($row = $resultado->fetch_array(
                     MYSQLI_ASSOC))  { ?>
                    <tr>
-                   <td><?php echo $row['id_user']; ?></td>
+                   <td><?php echo $row['id']; ?></td>
                    <td><?php echo $row['id_ciudadestino']; ?></td>
                    <td><?php echo $row['ranking']; ?></td>
                     </tr>

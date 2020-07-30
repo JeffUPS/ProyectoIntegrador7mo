@@ -75,12 +75,12 @@
 					<section class="profiles">
 						<div class="row">
 							<section class="3u 6u(medium) 12u$(xsmall) profile">
-								<img src="images/profile_placeholder.gif" alt="" />
+								<img src="images/arnaldo.jpeg" width="88" height="100" alt="" />
 								<h4>Arnaldo Ortiz</h4>
 								<p>Estudiante - Tester</p>
 							</section>
 							<section class="3u 6u$(medium) 12u$(xsmall) profile">
-								<img src="images/wilian.jpeg" width="95" height="100" />
+								<img src="images/wilian.jpeg" width="90" height="100" />
 								<h4>Wilian Tapia</h4>
 								<p>Estudiante - Desarrollador</p>
 							</section>

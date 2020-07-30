@@ -47,18 +47,19 @@
 	<body>
 	
 		<!-- Header -->
-			<header id="header">
+		<header id="header">
 				<h1><a href="admin.php">Ticket Express</a></h1>
 				<nav id="nav">
 					<ul>
-						
 						<li><?php  if (isset($_SESSION['correo'])) : ?>
 						<a href="profieladmin.php"><?php echo $_SESSION['correo']; ?></a>
 						<?php endif ?></li>	
 						<li><a href="admin.php">Inicio</a></li>
 						<li><a href="registrovuelo.php">Registrar Vuelo</a></li>
 						<li><a href="verclientes.php">Ver Clientes</a></li>
+						<li><a href="calificaciones.php">Ver Calificaciones</a></li>
 						<li><a href="salir.php" class="button special">Salir</a></li>
+						
 					</ul>
 				</nav>
 			</header>

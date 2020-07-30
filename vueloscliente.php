@@ -119,7 +119,7 @@ $resultado1 = $mysqli->query($ql);
 					</section>
 										<?php } ?>
 								<?php } ?>
-						
+								
 					</div>
 			</div>
 		</section>

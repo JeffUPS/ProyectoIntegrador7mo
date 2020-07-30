@@ -10,11 +10,11 @@ import sklearn
 
 #############DATASETS###
 
-df_users=pd.read_csv("/xampp/htdocs/programas/7mo/ProyectoIntegrador7mo-master/ML/users.csv")
+df_users=pd.read_csv("users.csv")
 #print(df_users.shape)
-df_repos=pd.read_csv("/xampp/htdocs/programas/7mo/ProyectoIntegrador7mo-master/ML/repos.csv")
+df_repos=pd.read_csv("repos.csv")
 #print(df_repos.shape)
-df_ratings=pd.read_csv("/xampp/htdocs/programas/7mo/ProyectoIntegrador7mo-master/ML/ratings.csv")
+df_ratings=pd.read_csv("ratings.csv")
 #print(df_ratings.shape)
 
 ###Cuantas ciudades y usuarios tenemos
@@ -64,10 +64,10 @@ users_predictions = sim_matrix_train.dot(ratings_train) / np.array([np.abs(sim_m
 #print(users_predictions)
 
 ##Grafica de las recomendaciones
-#plt.rcParams['figure.figsize'] = (20.0, 5.0)
-#plt.imshow(users_predictions);
-#plt.colorbar()
-#plt.show()
+plt.rcParams['figure.figsize'] = (20.0, 5.0)
+plt.imshow(users_predictions);
+plt.colorbar()
+plt.show()
 
 ##Debe existir  en el dataset de train
 import sys 

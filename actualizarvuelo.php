@@ -67,11 +67,13 @@
 						<li><a href="admin.php">Inicio</a></li>
 						<li><a href="registrovuelo.php">Registrar Vuelo</a></li>
 						<li><a href="verclientes.php">Ver Clientes</a></li>
+						<li><a href="calificaciones.php">Ver Calificaciones</a></li>
 						<li><a href="salir.php" class="button special">Salir</a></li>
 						
 					</ul>
 				</nav>
 			</header>
+
 
 		<!-- Main -->
 			<section id="three" class="wrapper style2 special">

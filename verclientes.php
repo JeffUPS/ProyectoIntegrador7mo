@@ -43,7 +43,7 @@
 	</head>
 	<body>
 		<!-- Header -->
-			<header id="header">
+		<header id="header">
 				<h1><a href="admin.php">Ticket Express</a></h1>
 				<nav id="nav">
 					<ul>
@@ -53,11 +53,13 @@
 						<li><a href="admin.php">Inicio</a></li>
 						<li><a href="registrovuelo.php">Registrar Vuelo</a></li>
 						<li><a href="verclientes.php">Ver Clientes</a></li>
+						<li><a href="calificaciones.php">Ver Calificaciones</a></li>
 						<li><a href="salir.php" class="button special">Salir</a></li>
 						
 					</ul>
 				</nav>
 			</header>
+
 
 		<!-- Main -->
 			<section id="main" class="wrapper">
@@ -70,6 +72,9 @@
 		<div class="row" style="text-align:center">
 			<h3>Visualización Clientes</h3>
 		</div>
+		<form method="post" class="form" action="reporte_users.php">
+			<button type="submit" id="export_data" name="export_data" value="Export" class="button"><i>Exportar a CSV</i></button>
+		</form>
 		
 		<div class="row table-responsive">
 			<table class="table table-striped">

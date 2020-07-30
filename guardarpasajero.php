@@ -31,7 +31,7 @@ $resultado = $mysqli->query($sql);
            <div class="row">
              <div class="row" style="text-align:center">
              <?php if($resultado) { ?>
-                echo "<script> alert("DATOS PERSONALES PASAJERO GUARDADO"); window.location="pasajero.php";</script>";
+                echo "<script> alert("DATOS PERSONALES PASAJERO GUARDADO"); window.location="checkout.php";</script>";
              <?php } else { ?>
                echo "<script> alert("DATOS PERSONALES PASAJERO NO GUARDADO"); window.location="pasajero.php";</script>";
              <?php } ?>

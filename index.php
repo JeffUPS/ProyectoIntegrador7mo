@@ -1,6 +1,6 @@
 <?php
  require 'database.php';
- $sql="SELECT DISTINCTROW ciudad_origen,ciudad_destino FROM ciudad,ciudadesti";
+ $sql="SELECT ciudad_origen,ciudad_destino FROM ciudad,ciudadesti WHERE ciudad_origen=ciudad_destino";
  $resultado = $mysqli->query($sql); 
 ?>
 <!DOCTYPE html>
@@ -26,13 +26,14 @@
 	<body class="landing">
 		<!-- Header -->
 			<header id="header">
-				<h1><a href="indexcliente.php">Ticket Express</a></h1>
+				<h1><a href="index.php">Ticket Express</a></h1>
 				<nav id="nav">
 					<ul>
+						
 						<li><a href="index.php">Inicio</a></li>
 						<li><a href="info.php">Información</a></li>
 						<li><a href="help.php">Ayuda</a></li>
-						<li><a href="iniciosesion.php" class="button special">Iniciar Sesion</a></li>
+						<li><a href="iniciosesion.php" class="button special">Inicio Sesión</a></li>
 					</ul>
 				</nav>
 			</header>
@@ -41,7 +42,6 @@
 				<h2>Bienvenido a Ticket Express</h2>
 				<p>Viaja a tus lugares favoritos.</p>
 			</section>
-		
 
 		<!-- One -->
 			<section id="two" class="wrapper style2 special">
@@ -51,17 +51,15 @@
 					</header>
 
 					
-						<div class="container 150%">
+					<div class="container 150%">
 							<div class="row">
 								<div class="4u(3)">
-									<input type="radio" id="priority-normal" name="priority" checked>
-									<label for="priority-normal">Ida y Vuelta</label>
+									<input type="radio" id="isDiscounted" name="isDiscounted" value= 1 th:field="*{discounted}" checked>
+									<label for="isDiscounted">Ida y Vuelta</label>
 								</div>
 							<div class="4u(3)">
-								<input type="radio" id="priority-normal" name="priority">
-								<label for="priority-low">Solo Ida</label>
-							</div>
-
+								<input type="radio" id="isNotDiscounted" name="isDiscounted" value= 0 th:field="*{discounted}">
+								<label for="isNotDiscounted">Solo Ida</label>
 							</div>
 							<form action="vuelos.php" method="POST">
 								<div class="row uniform">
@@ -93,21 +91,22 @@
 										<h3>Fecha Ida:</h3>
 									</div>
 									<div class="6u(small)">
-										<input type="date" name="fecha_salida" value="2020-07-22" >
+										<input type="date" name="fecha_salida" value="2020-07-22">
 									</div>
 									<div class="6u(small)">
 										<h3>Fecha Vuelta:</h3>
 									</div>
 									<div class="6u(small)">
-										<input type="date" name="fecha_llegada"  value="2020-07-22">
+										<input type="date" name="fecha_llegada" value="2020-07-22" id="discountPercentage" th:field="*{discountPercentage}" enable>
 									</div>
 									<div class="6u(small)">
 										<ul class="actions">
-											<li><input value="Buscar" id="enviar" name="enviar" class="special medium" type="submit"></li>
+											<input value="Buscar" id="enviar" name="enviar" class="special medium" type="submit">
 										</ul>
 									</div>
 								</div>
 						</form>
+						
 						</div>
 				
 				</div>

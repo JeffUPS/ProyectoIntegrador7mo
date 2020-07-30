@@ -1,33 +1,24 @@
-<?php 
-	session_start(); 
+<?php
+  session_start(); 
 
-	if (!isset($_SESSION['correo'])) {
-		$_SESSION['msg'] = "You must log in first";
-		header('location: iniciosesion.php');
-	}
+  if (!isset($_SESSION['correo'])) {
+	  $_SESSION['msg'] = "You must log in first";
+	  header('location: iniciosesion.php');
+  }
 
-	if (isset($_GET['logout'])) {
-		session_destroy();
-		unset($_SESSION['correo']);
-		header("location: iniciosesion.php");
-	}
-	require 'database.php';
-	$where = "";
-   
-	 if(!empty($_POST)){
-		 $nombre= $_POST['nombre'];
-   
-		 if(!empty($nombre)){
-			$where= "WHERE nombre ='$nombre'";
-	
-		 }
-	 }
+  if (isset($_GET['logout'])) {
+	  session_destroy();
+	  unset($_SESSION['correo']);
+	  header("location: iniciosesion.php");
+  }
+  
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<title>Ticket Express | Información</title>
+		<title>Ticket Express | Administrador</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
@@ -41,9 +32,9 @@
 			<link rel="stylesheet" href="css/style-xlarge.css" />
 	</head>
 	<body>
-
+	
 		<!-- Header -->
-			<header id="header">
+        <header id="header">
 				<h1><a href="indexcliente.php">Ticket Express</a></h1>
 				<nav id="nav">
 					<ul>
@@ -61,30 +52,35 @@
 			</header>
 
 		<!-- Main -->
-			<section id="two" class="wrapper style2 special">
+        <section id="three" class="wrapper style2 special">
 				<div class="container">
 					<header class="major">
-						<h3>Perfil</h3>
+						<h2>Proceso de Pago</h2>
 					</header>
-					<section class="profiles">
-						<div class="row">
-						<section class="3u 4u(small) profile">
-								<img src="images/profile_placeholder.gif" alt="" />
-								<?php
-        							$sql= "SELECT * FROM clientes WHERE correo='$_SESSION[correo]'";
-										$resultado = $mysqli->query($sql);
-										 while($row = $resultado->fetch_array(
-										   MYSQLI_ASSOC))  { 
-								?>
-								<h5>Nombre</h5>
-								<?php echo $row['nombre']; ?>
-								<?php }?>
-								<h5>Correo</h5>
-								<?php echo $_SESSION['correo']; ?>
-							</section>
-							
+				</div>
+				<div class="container 50%">
+					<form action="#" method="post">
+						<div class="row uniform">
+                        
+                            <div class="12u$">
+								<input type="text" name="titular" id="titular" placeholder="Ingrese Nombre del Titular" >
+							</div>
+                            <div class="12u$">
+								<input type="text" name="tarjeta" id="tarjeta" placeholder="0000 0000 0000 0000" >
+							</div>
+							<div class="12u(small)">
+								<input name="name" id="name" value="" placeholder="MM/AA" type="text">
+							</div>
+							<div class="6u 12u(small)">
+								<input name="text" id="mes" value="" placeholder="CVC" type="email">
+							</div>
+							<div class="12u$">
+								<ul class="actions">
+									<li><input value="Comprar" class="special big" type="submit"></li>
+								</ul>
+							</div>
 						</div>
-					</section>
+					</form>
 				</div>
 			</section>
 
@@ -112,13 +108,10 @@
 							<div class="4u$ 12u$(medium)">
 							<ul class="icons">
 								<li>
-									<a href="https://www.facebook.com/Ticket-Express-100616961753420/" class="icon rounded fa-facebook"><span class="label">Facebook</span></a>
+									<a class="icon rounded fa-facebook"><span class="label">Facebook</span></a>
 								</li>
 								<li>
 									<a class="icon rounded fa-twitter"><span class="label">Twitter</span></a>
-								</li>
-								<li>
-									<a href="https://github.com/JeffUPS/ProyectoIntegrador7mo" class="icon rounded fa-github"><span class="label">Github</span></a>
 								</li>
 							</ul>
 						</div>

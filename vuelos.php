@@ -18,6 +18,25 @@
 $ql= "SELECT * FROM vuelo $where";
 $resultado1 = $mysqli->query($ql);
 ?>
+<?php
+
+require 'database.php';
+$where = "";
+
+if(!empty($_POST)){
+   $ciudad_origen= $_POST['ciudad_origen'];
+   $ciudad_destino= $_POST['ciudad_destino'];
+   $fecha_salida= $_POST['fecha_salida'];
+
+   if(!empty($ciudad_origen and $ciudad_destino and $fecha_salida )){
+	  $where= "WHERE ciudad_origen ='$ciudad_origen' AND ciudad_destino='$ciudad_destino' AND fecha_salida='$fecha_salida'";
+
+   }
+}
+
+$sql= "SELECT * FROM vuelo $where";
+$resultado2 = $mysqli->query($sql);
+?>
 
 
 
@@ -61,7 +80,8 @@ $resultado1 = $mysqli->query($ql);
 							<hr>
 					<div class="12u$">
 						<!-- Consulta Busqueda de Vuelo -->
-						<?php while($row = $resultado1->fetch_array(MYSQLI_ASSOC)) { ?>
+						<?php while($row = $resultado1->fetch_array(MYSQLI_ASSOC)) { 
+								while($row = $resultado2->fetch_array(MYSQLI_ASSOC)) { ?>
 							
 					<section class="links">
 						<div class="row">
@@ -98,7 +118,7 @@ $resultado1 = $mysqli->query($ql);
 					</section>
 					
 								
-						<?php } ?>
+						<?php } }?>
 					</div>
 			</div>
 		</section>
